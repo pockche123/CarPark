@@ -1,7 +1,14 @@
 package org.example;
 
-public class EntryBarrier implements Barrier{
+import org.example.parkingspots.ParkingSpotType;
+
+public class EntryBarrier implements Barrier {
     private boolean up;
+
+    public Ticket getTicket(String spotType){
+        return new Ticket(spotType);
+    }
+
 
     @Override
     public void raise() {
