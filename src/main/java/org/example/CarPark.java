@@ -10,6 +10,10 @@ public class CarPark {
 //    private int carParkId;
     private int capacity;
     private int freeSpaces;
+    private Barrier barrier;
+    private Sensor sensor;
+    private IDReader idreader;
+    private FullSign fullSign;
 
 
     public void incrementSpaces(){
