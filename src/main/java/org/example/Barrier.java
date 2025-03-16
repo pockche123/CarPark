@@ -1,22 +1,11 @@
 package org.example;
 
-import lombok.Getter;
 
-@Getter
-public class Barrier {
 
-    private boolean up;
 
-    private void raise(){
-        this.up = true;
-    }
+public interface Barrier {
 
-    private void lower(){
-        this.up = false;
-    }
-
-    private void update(){
-
-    }
+    public void raise();
+    public void lower();
 
 }
