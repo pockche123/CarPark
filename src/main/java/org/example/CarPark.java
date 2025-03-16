@@ -9,25 +9,28 @@ public class CarPark {
 
 //    private int carParkId;
     private int capacity;
-    private int freeSpaces;
+    private int freeNormalSpaces;
+    private int freeHandicappedSpaces;
     private Barrier barrier;
     private Sensor sensor;
     private IDReader idreader;
     private FullSign fullSign;
+    private CarRegistry carRegistry;
 
 
-    public void incrementSpaces(){
-        this.freeSpaces += 1;
-        System.out.println("The current free space is: " + freeSpaces);
+
+    public void incrementNormalSpaces(){
+        this.freeNormalSpaces += 1;
+        System.out.println("The current free normal space is: " + freeNormalSpaces);
     }
 
-    public void decrementSpaces(){
-        this.freeSpaces -= 1;
-        System.out.println("The current free space is: " + freeSpaces);
+    public void decrementNormalSpaces(){
+        this.freeNormalSpaces -= 1;
+        System.out.println("The current free space is: " + freeNormalSpaces);
     }
 
     public int spacesLeft(){
-        int spacesLeft = this.capacity - this.freeSpaces;
+        int spacesLeft = this.capacity - this.freeNormalSpaces - this.freeHandicappedSpaces;
         return spacesLeft;
     }
 
