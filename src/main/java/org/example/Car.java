@@ -1,19 +1,16 @@
 package org.example;
 
-
-
 public class Car {
 
     private String plate;
     private String barcode;
-    private boolean requiresHandicapped  = false;
 
-
-    public Car(String plate, String barcode, boolean requiresHandicapped){
+    public Car(String plate, String barcode){
         this.plate = plate;
         this.barcode = barcode;
-        this.requiresHandicapped = requiresHandicapped;
+
     }
+    public String getPlate(){return this.plate};
 
     public String getBarcode(){
         return this.barcode;
