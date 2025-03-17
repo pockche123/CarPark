@@ -7,5 +7,5 @@ public abstract class ParkingSpotType {
 
     public abstract void leaveSpot(int spot);
 
-    public abstract void printNextSpot();
+    public abstract void printAvailableSpots();
 }

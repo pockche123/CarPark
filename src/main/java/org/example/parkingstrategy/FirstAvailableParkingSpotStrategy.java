@@ -28,6 +28,8 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
 
     @Override
     public void printAvailableSpots() {
-        System.out.println("First available spots " + availableSpot.first());
+        for(Integer i: availableSpot){
+            System.out.printf(i + ", ");
+        }
     }
 }

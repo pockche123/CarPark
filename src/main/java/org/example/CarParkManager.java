@@ -11,6 +11,12 @@ public class CarParkManager {
     public CarParkManager(){}
 
 
+    public void initialiseCarPark(){
+        // think about how you willl implement the spaces within the strategy
+    }
+
+
+
     public void enterCarPark()
     {
 //        car enter the car park

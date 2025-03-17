@@ -27,7 +27,8 @@ public class HandiCappedSpotType extends ParkingSpotType{
     }
 
     @Override
-    public void printNextSpot() {
+    public void printAvailableSpots() {
+
         parkingSpotStrategy.printAvailableSpots();
     }
 }

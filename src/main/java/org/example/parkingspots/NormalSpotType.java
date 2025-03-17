@@ -28,7 +28,7 @@ public class NormalSpotType extends ParkingSpotType {
     }
 
     @Override
-    public void printNextSpot(){
+    public void printAvailableSpots(){
         spotStrategy.printAvailableSpots();
     }
 
