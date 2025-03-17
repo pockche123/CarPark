@@ -4,10 +4,11 @@ import org.example.parkingspots.ParkingSpotType;
 
 public class EntryBarrier implements Barrier {
     private boolean up;
+    private Ticket ticket;
 
-    public Ticket getTicket(String spotType){
-        return new Ticket(spotType);
-    }
+
+
+
 
 
     @Override
