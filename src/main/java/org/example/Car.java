@@ -10,7 +10,7 @@ public class Car {
         this.barcode = barcode;
 
     }
-    public String getPlate(){return this.plate};
+    public String getPlate(){return this.plate;}
 
     public String getBarcode(){
         return this.barcode;

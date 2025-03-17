@@ -13,7 +13,7 @@ public class NormalSpotType extends ParkingSpotType {
     }
 
     @Override
-    public Integer findNearestSpot(){
+    public Integer findSpot(){
         return spotStrategy.findNearestSpot();
     }
 
@@ -28,7 +28,7 @@ public class NormalSpotType extends ParkingSpotType {
     }
 
     @Override
-    public void printAvailableSpots(){
+    public void printNextSpot(){
         spotStrategy.printAvailableSpots();
     }
 

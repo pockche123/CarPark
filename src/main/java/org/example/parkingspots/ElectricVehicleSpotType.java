@@ -10,9 +10,8 @@ public class ElectricVehicleSpotType extends ParkingSpotType {
         this.parkingSpotStrategy = parkingSpotStrategy;
     }
 
-
     @Override
-    public Integer findNearestSpot() {
+    public Integer findSpot() {
         return parkingSpotStrategy.findNearestSpot();
     }
 
@@ -27,7 +26,7 @@ public class ElectricVehicleSpotType extends ParkingSpotType {
     }
 
     @Override
-    public void printAvailableSpots() {
+    public void printNextSpot() {
         parkingSpotStrategy.printAvailableSpots();
     }
 }

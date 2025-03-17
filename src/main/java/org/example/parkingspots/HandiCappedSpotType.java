@@ -12,7 +12,7 @@ public class HandiCappedSpotType extends ParkingSpotType{
         this.parkingSpotStrategy = parkingSpotStrategy;
     }
     @Override
-    public Integer findNearestSpot() {
+    public Integer findSpot() {
         return parkingSpotStrategy.findNearestSpot();
     }
 
@@ -27,7 +27,7 @@ public class HandiCappedSpotType extends ParkingSpotType{
     }
 
     @Override
-    public void printAvailableSpots() {
+    public void printNextSpot() {
         parkingSpotStrategy.printAvailableSpots();
     }
 }
