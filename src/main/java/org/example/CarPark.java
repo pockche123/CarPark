@@ -68,6 +68,11 @@ public class CarPark {
         System.out.println("Free handicapped spaces: " + freeHandicappedSpaces);
     }
 
+    public void incrementNormalSpaces(){
+        freeNormalSpaces++;
+        System.out.println("Free Normal spaces: " + freeNormalSpaces);
+    }
+
 
     public int getFreeHandicappedSpaces() {
         return freeHandicappedSpaces;
