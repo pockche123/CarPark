@@ -13,8 +13,6 @@ public class CarPark {
     private FullSign fullSign;
     private CarRegistry carRegistry;
 
-
-
     public void incrementNormalSpaces(){
         this.freeNormalSpaces += 1;
         System.out.println("The current free normal space is: " + freeNormalSpaces);
