@@ -3,11 +3,17 @@ package org.example;
 import org.example.parkingspots.ParkingSpotType;
 
 public class EntryBarrier implements Barrier {
+
     private boolean up;
     private Ticket ticket;
 
     public EntryBarrier(ParkingSpotType spotType){
         ticket = new Ticket(spotType);
+    }
+
+
+    public boolean getUp() {
+        return up;
     }
 
 
