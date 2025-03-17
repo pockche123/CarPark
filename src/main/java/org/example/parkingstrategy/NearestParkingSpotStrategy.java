@@ -29,7 +29,9 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
 
     @Override
     public void printAvailableSpots(){
-        System.out.println("Available spots: " + nearestSpot);
+        for(Integer i: nearestSpot){
+            System.out.printf(i + ", ");
+        }
 
     }
 

@@ -7,22 +7,27 @@ import java.util.PriorityQueue;
 public class NormalSpotType extends ParkingSpotType {
     private ParkingSpotStrategy spotStrategy;
 
+
     public NormalSpotType(ParkingSpotStrategy strategy){
         this.spotStrategy = strategy;
     }
 
-    public Integer findNearestSpot(){
+    @Override
+    public Integer findSpot(){
         return spotStrategy.findNearestSpot();
     }
 
+    @Override
     public Integer parkCar(){
         return spotStrategy.parkCar();
     }
 
+    @Override
     public void leaveSpot(int spot){
         spotStrategy.leaveSpot(spot);
     }
 
+    @Override
     public void printAvailableSpots(){
         spotStrategy.printAvailableSpots();
     }

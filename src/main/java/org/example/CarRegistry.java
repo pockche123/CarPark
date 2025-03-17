@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CarRegistry {
-    Map<String, Car> carRegistry = new HashMap<>();
+    protected Map<String, Car> carRegistry = new HashMap<>();
 
 
     public boolean addCar(String key, Car value){
@@ -16,4 +16,6 @@ public class CarRegistry {
         carRegistry.remove(key);
         return !carRegistry.containsKey(key);
     }
+
+
 }

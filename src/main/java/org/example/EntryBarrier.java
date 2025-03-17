@@ -3,16 +3,27 @@ package org.example;
 import org.example.parkingspots.ParkingSpotType;
 
 public class EntryBarrier implements Barrier {
-    private boolean up;
 
-    public Ticket getTicket(String spotType){
-        return new Ticket(spotType);
+    private boolean up;
+    private Ticket ticket;
+
+    public EntryBarrier(ParkingSpotType spotType){
+        ticket = new Ticket(spotType);
+    }
+
+
+    public boolean getUp() {
+        return up;
     }
 
 
     @Override
     public void raise() {
-        this.up = true;
+        if(ticket != null) {
+            System.out.println("Entry barrier raised");
+            this.up = true;
+        }
+        System.out.println("Entry barrier cannot be raised");
     }
 
     @Override
