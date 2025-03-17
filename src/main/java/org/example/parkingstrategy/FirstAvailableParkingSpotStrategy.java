@@ -3,7 +3,7 @@ package org.example.parkingstrategy;
 import java.util.TreeSet;
 
 public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
-    private TreeSet<Integer> availableSpot;
+    private final TreeSet<Integer> availableSpot;
 
     public FirstAvailableParkingSpotStrategy(int start, int end){
         availableSpot = new TreeSet<>();
