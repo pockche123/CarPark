@@ -10,6 +10,8 @@ public class Ticket {
         this.spotType = type;
     }
 
+//    ticket price generator pending in next sprint
+
 
 
 

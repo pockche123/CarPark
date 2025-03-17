@@ -12,8 +12,6 @@ public class Car {
     private LocalDateTime leaveTime;
     private Ticket ticket;
     private ParkingSpotType spotType;
-
-
     private boolean isMember;
 
     public Car(String plate){
