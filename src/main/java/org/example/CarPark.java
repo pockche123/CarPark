@@ -1,15 +1,33 @@
 package org.example;
 
 
+import org.example.parkingspots.ParkingSpotType;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class CarPark {
     private double HANDICAPPED_PERCENTAGE = 0.05;
     private double ELECTRIC_PERCENTAGE = 0.05;
+    private Map<ParkingSpotType, Integer> parkingSpotTypeSpacesMap = new HashMap<>();
+
+    public Map<ParkingSpotType, Integer> getParkingSpotTypeSpacesMap() {
+        return parkingSpotTypeSpacesMap;
+    }
+
+    public void setParkingSpotTypeSpacesMap(Map<ParkingSpotType, Integer> parkingSpotTypeSpacesMap) {
+        this.parkingSpotTypeSpacesMap = parkingSpotTypeSpacesMap;
+    }
+
 
 //    private int carParkId;
     private int capacity;
     private int freeNormalSpaces;
     private int freeHandicappedSpaces;
     private int freeElectricVehicleSpaces;
+
+
+
 //    private Barrier barrier;
 //    private Sensor sensor;
 //    private IDReader idreader;
@@ -18,10 +36,12 @@ public class CarPark {
 
     public CarPark(int capacity){
         this.capacity = capacity;
-        this.freeHandicappedSpaces = (int) HANDICAPPED_PERCENTAGE * capacity;
-        this.freeElectricVehicleSpaces = (int) ELECTRIC_PERCENTAGE * capacity;
+        this.freeHandicappedSpaces = (int) (HANDICAPPED_PERCENTAGE * capacity);
+        this.freeElectricVehicleSpaces = (int) (ELECTRIC_PERCENTAGE * capacity);
         this.freeNormalSpaces = capacity - this.freeHandicappedSpaces - this.freeElectricVehicleSpaces;
     }
+
+
 
 
     public int getCapacity() {
@@ -30,8 +50,8 @@ public class CarPark {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-        this.freeHandicappedSpaces = (int) HANDICAPPED_PERCENTAGE * capacity;
-        this.freeElectricVehicleSpaces = (int) ELECTRIC_PERCENTAGE * capacity;
+        this.freeHandicappedSpaces = (int) (HANDICAPPED_PERCENTAGE * capacity);
+        this.freeElectricVehicleSpaces = (int) (ELECTRIC_PERCENTAGE * capacity);
         this.freeNormalSpaces = capacity - this.freeHandicappedSpaces - this.freeElectricVehicleSpaces;
 
     }

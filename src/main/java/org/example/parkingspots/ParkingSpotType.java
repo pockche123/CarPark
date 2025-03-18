@@ -8,4 +8,6 @@ public abstract class ParkingSpotType {
     public abstract void leaveSpot(int spot);
 
     public abstract void printAvailableSpots();
+
+    public abstract int getSpacesLeft();
 }
