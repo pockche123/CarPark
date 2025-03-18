@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.builder.CarParkDirector;
+import org.example.utils.ValidationUtils;
 
 import java.util.Scanner;
 
@@ -24,6 +25,18 @@ public class CarParkManager {
     public void enterCarPark()
     {
 //        car enter the car park
+        System.out.println("Please select option 1 or option 2");
+        System.out.println("1. Member");
+        System.out.println("2. Guest");
+        String carOption = stdin.nextLine();
+
+        while(!ValidationUtils.checkValidOption(carOption,1,3)){
+            System.err.println("Please pick a valid option");
+            carOption = stdin.nextLine();
+        }
+
+
+        String plate = stdin.nextLine();
         Car car = new Car("UJZ8884");
 //        sensor detects the car
         Sensor sensor = new Sensor(car);
@@ -33,7 +46,12 @@ public class CarParkManager {
         System.out.println("1. Standard");
         System.out.println("2. Electric Vehicle");
         System.out.println("3. Handicap");
-        int option = Integer.parseInt(stdin.nextLine());
+        String option = stdin.nextLine();
+
+        while(!ValidationUtils.checkValidOption(option,1,3)){
+            System.err.println("Please pick a valid option");
+            option = stdin.nextLine();
+        }
 
 
 
