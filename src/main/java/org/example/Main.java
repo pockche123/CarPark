@@ -13,8 +13,11 @@ public class Main {
       CarParkDirector director = new CarParkDirector();
       CarPark park = director.buildAverageCarPark(100);
 
-      int val = carParkManager.checkForSpaces(park, "NORMAL");
-        System.out.println(val);
+      CarParkMenu menu = new CarParkMenu();
+      menu.showMenu();
+
+//      int val = carParkManager.checkForSpaces(park, "NORMAL");
+//        System.out.println(val);
 //      carParkManager.enterCarPark();
 //
 //        CarParkMenu menu = new CarParkMenu();
