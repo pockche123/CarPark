@@ -14,6 +14,10 @@ public class Car {
     private ParkingSpotType spotType;
     private boolean isMember;
 
+    public Car(){
+
+    }
+
     public Car(String plate){
         this.plate = plate;
 

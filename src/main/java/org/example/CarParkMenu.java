@@ -1,30 +1,43 @@
 package org.example;
 
+import org.example.builder.CarParkDirector;
+import org.example.parkingspots.NormalSpotType;
+import org.example.parkingspots.ParkingSpotType;
+import org.example.parkingstrategy.ParkingSpotStrategy;
+
 import java.util.Scanner;
+
+
 
 public class CarParkMenu {
 
     private final Scanner stdin = new Scanner(System.in);
-    public void showMenu(){
-        while(true){
+    private CarParkDirector director = new CarParkDirector();
+
+    private CarParkManager parkManager;
+    public void showMenu() {
+        while (true) {
             System.out.println("--------------- Welcome to PJ's Parking -------------------");
-            System.out.println(" OPTION ");
-            System.out.println(" 1. Member ");
-            System.out.println(" 2. Non-member ");
-            System.out.println(" 3. Exit menu ");
+            System.out.println(" Please pick the option for the parking type: ");
+            System.out.println(" 1. Standard ");
+            System.out.println(" 2. Accessible  ");
+            System.out.println(" 3. Electric Vehicles ");
+            System.out.println(" 4. Exit ");
 
             if (!stdin.hasNextInt()) {
-                System.err.println("Invalid input! Please enter a number (1-3).");
+                System.err.println("Invalid input! Please enter a number (1-4).");
                 stdin.nextLine();
                 continue;
             }
 
             int choice = stdin.nextInt();
             stdin.nextLine();
+            CarPark carPark = director.buildAverageCarPark(100);
 
-            switch(choice){
+            switch (choice) {
                 case 1:
-                    registerMember();
+//                    strategy = new
+//                    checkForSpaces(carPark, "normal");
                     break;
                 case 2:
                     registerNonMember();
@@ -38,16 +51,21 @@ public class CarParkMenu {
 
 
             }
-
-
-
-
-
         }
     }
 
+    private void checkForSpaces(ParkingSpotType spotType){
+
+        }
+
     private void registerNonMember() {
-        System.out.println("hello you are in non- member");
+        while(true) {
+            System.out.println("Please enter a valid REG number: ");
+            String reg = stdin.nextLine();
+
+
+            System.out.println("Car");
+        }
     }
 
     private void registerMember() {
