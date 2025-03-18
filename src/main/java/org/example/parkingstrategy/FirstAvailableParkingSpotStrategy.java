@@ -32,4 +32,9 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
             System.out.printf(i + ", ");
         }
     }
+
+    @Override
+    public int getSpacesLeft() {
+        return availableSpot.size();
+    }
 }

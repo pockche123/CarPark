@@ -35,5 +35,10 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
 
     }
 
+    @Override
+    public int getSpacesLeft() {
+        return nearestSpot.size();
+    }
+
 
 }

@@ -1,100 +1,26 @@
 package org.example;
 
 
-public class CarPark {
-    private double HANDICAPPED_PERCENTAGE = 0.05;
-    private double ELECTRIC_PERCENTAGE = 0.05;
+import org.example.parkingspots.ParkingSpotType;
 
-//    private int carParkId;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CarPark {
     private int capacity;
-    private int freeNormalSpaces;
-    private int freeHandicappedSpaces;
-    private int freeElectricVehicleSpaces;
-//    private Barrier barrier;
-//    private Sensor sensor;
-//    private IDReader idreader;
-//    private FullSign fullSign;
-//    private CarRegistry carRegistry;
+    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
 
     public CarPark(int capacity){
         this.capacity = capacity;
-        this.freeHandicappedSpaces = (int) HANDICAPPED_PERCENTAGE * capacity;
-        this.freeElectricVehicleSpaces = (int) ELECTRIC_PERCENTAGE * capacity;
-        this.freeNormalSpaces = capacity - this.freeHandicappedSpaces - this.freeElectricVehicleSpaces;
     }
 
-
-    public int getCapacity() {
-        return capacity;
+    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
+        return parkingSpotTypeSpacesMap;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-        this.freeHandicappedSpaces = (int) HANDICAPPED_PERCENTAGE * capacity;
-        this.freeElectricVehicleSpaces = (int) ELECTRIC_PERCENTAGE * capacity;
-        this.freeNormalSpaces = capacity - this.freeHandicappedSpaces - this.freeElectricVehicleSpaces;
-
+    public void setParkingSpotTypeSpacesMap(Map<String, ParkingSpotType> parkingSpotTypeSpacesMap) {
+        this.parkingSpotTypeSpacesMap = parkingSpotTypeSpacesMap;
     }
-
-    public int getFreeElectricVehicleSpaces() {
-        return freeElectricVehicleSpaces;
-    }
-
-    public void incrementFreeElectricVehicles(){
-        freeElectricVehicleSpaces++;
-        System.out.println("Free electric spaces: " + freeElectricVehicleSpaces);
-    }
-
-    public void decrementFreeElectricVehicles(){
-        if(freeElectricVehicleSpaces == 0){
-            System.out.println("No free spaces for electric vehicles available");
-            return;
-        }
-        freeElectricVehicleSpaces--;
-        System.out.println("Free electric spaces: " + freeElectricVehicleSpaces);
-    }
-
-    public void incrementFreeHandicappedSpaces(){
-        freeHandicappedSpaces++;
-        System.out.println("Free handicapped spaces: " + freeHandicappedSpaces);
-    }
-
-    public void decrementFreeHandicappedSpaces(){
-        if(freeHandicappedSpaces == 0){
-            System.out.println("No free handicapped spaces available");
-            return;
-        }
-        freeHandicappedSpaces--;
-        System.out.println("Free handicapped spaces: " + freeHandicappedSpaces);
-    }
-
-    public void incrementNormalSpaces(){
-        freeNormalSpaces++;
-        System.out.println("Free Normal spaces: " + freeNormalSpaces);
-    }
-
-
-    public int getFreeHandicappedSpaces() {
-        return freeHandicappedSpaces;
-    }
-
-    public int getFreeNormalSpaces() {
-        return freeNormalSpaces;
-    }
-
-    public int spacesLeft(){
-        int spacesLeft = this.freeNormalSpaces + this.freeHandicappedSpaces + this.freeElectricVehicleSpaces;
-        return spacesLeft;
-    }
-
-    private void setHandicappedPercentage(double percentage){
-        HANDICAPPED_PERCENTAGE = percentage;
-    }
-
-    private void setElectricPercentage(double percentage){
-        ELECTRIC_PERCENTAGE = percentage;
-    }
-
 
     public void update() {
         //Place your carpark update logic here.

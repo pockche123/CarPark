@@ -28,7 +28,12 @@ public class HandiCappedSpotType extends ParkingSpotType{
 
     @Override
     public void printAvailableSpots() {
-
+        System.out.println("HandiCapped available spots: ");
         parkingSpotStrategy.printAvailableSpots();
+    }
+
+    @Override
+    public int getSpacesLeft() {
+        return parkingSpotStrategy.getSpacesLeft();
     }
 }
