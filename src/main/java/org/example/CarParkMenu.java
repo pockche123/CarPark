@@ -41,23 +41,25 @@ public class CarParkMenu {
                 return;
             }
 
-            String[] spotTypes = {"normal", "handicapped", "electric" };
-            String[] spotNames = {"STANDARD", "ACCESSIBLE", "EV"};
+            showChoiceResults(choice);
+        }
+    }
 
-            if(choice >=1 && choice <=3){
-                int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
-                if( spaces > 0){
-                    spotKey = spotTypes[choice-1];
-                    System.out.println("There are currently " + spaces + " spaces available for " + spotNames[choice-1]  + " parking." );
-                    pickMemberType();
-                } else{
-                    System.out.println("Sorry. There are no more " + spotNames[choice-1] + " spaces.");
-                }
-
+    public void showChoiceResults(int choice){
+        String[] spotTypes = {"normal", "handicapped", "electric" };
+        String[] spotNames = {"STANDARD", "ACCESSIBLE", "EV"};
+        if(choice >=1 && choice <=3){
+            int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
+            if( spaces > 0){
+                spotKey = spotTypes[choice-1];
+                System.out.println("There are currently " + spaces + " spaces available for " + spotNames[choice-1]  + " parking." );
+                pickMemberType();
             } else{
-                System.err.println("Invalid choice. Please try again.");
+                System.out.println("Sorry. There are no more " + spotNames[choice-1] + " spaces.");
             }
 
+        } else{
+            System.err.println("Invalid choice. Please try again.");
         }
     }
 
