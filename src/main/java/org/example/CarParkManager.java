@@ -24,35 +24,6 @@ public class CarParkManager {
     public CarParkManager(){}
 
 
-    public void initialiseCarPark(int capacity){
-        // think about how you willl implement the spaces within the strategy
-        carPark = new CarPark(capacity);
-        int normalSpot = carPark.getFreeNormalSpaces();
-        int electricSpot = carPark.getFreeElectricVehicleSpaces();
-        int handicappedSpot = carPark.getFreeHandicappedSpaces();
-
-        ParkingSpotStrategy nearestStrategy = new NearestParkingSpotStrategy(1,normalSpot/2);
-        ParkingSpotType normal1  = new NormalSpotType(nearestStrategy);
-
-        int start1 = normalSpot/2 + 1;
-        int end1 = normalSpot/2 + electricSpot;
-        ParkingSpotStrategy firstAvailableStrategy = new FirstAvailableParkingSpotStrategy(start1, end1);
-        ParkingSpotType electric = new ElectricVehicleSpotType(firstAvailableStrategy);
-
-        int start2 = end1 + 1;
-        int end2 = end1 + handicappedSpot;
-        firstAvailableStrategy = new FirstAvailableParkingSpotStrategy(start2,end2);
-        ParkingSpotType handicapped = new HandiCappedSpotType(firstAvailableStrategy);
-
-
-        int start3 = end2 + 1;
-        int end3 = capacity %2 == 0 ? end2 + normalSpot/2  : end2 + normalSpot/2 + 1;
-        nearestStrategy = new NearestParkingSpotStrategy(start3,end3);
-        ParkingSpotType normal2 = new NormalSpotType(nearestStrategy);
-
-    }
-
-
 
     public void enterCarPark()
     {
