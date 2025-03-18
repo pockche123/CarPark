@@ -17,7 +17,7 @@ public class CarParkDirector{
     public CarPark buildAverageCarPark(int capacity){
         CarPark carPark = new CarPark(capacity);
 
-        Map<ParkingSpotType, Integer> parkingSpotTypeMap = new HashMap<>();
+        Map<String, ParkingSpotType> parkingSpotTypeMap = new HashMap<>();
 
         int electricSpaces = (int) (0.05 * capacity);
         int handicappedSpaces = (int) (0.05 * capacity);
@@ -44,10 +44,11 @@ public class CarParkDirector{
         nearestStrategy = new NearestParkingSpotStrategy(start3,end3);
         ParkingSpotType normal2 = new NormalSpotType(nearestStrategy);
 
-        parkingSpotTypeMap.put(normal1, normalSpaces/2);
-        parkingSpotTypeMap.put(electric, electricSpaces);
-        parkingSpotTypeMap.put(handicapped, handicappedSpaces);
-        parkingSpotTypeMap.put(normal2, normalSpaces/2);
+
+        parkingSpotTypeMap.put( "normal1", normal1);
+        parkingSpotTypeMap.put("electric", electric);
+        parkingSpotTypeMap.put("handicapped", handicapped);
+        parkingSpotTypeMap.put("normal2", normal2);
 
         carPark.setParkingSpotTypeSpacesMap(parkingSpotTypeMap);
 

@@ -9,13 +9,13 @@ import java.util.Map;
 public class CarPark {
     private double HANDICAPPED_PERCENTAGE = 0.05;
     private double ELECTRIC_PERCENTAGE = 0.05;
-    private Map<ParkingSpotType, Integer> parkingSpotTypeSpacesMap = new HashMap<>();
+    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
 
-    public Map<ParkingSpotType, Integer> getParkingSpotTypeSpacesMap() {
+    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
         return parkingSpotTypeSpacesMap;
     }
 
-    public void setParkingSpotTypeSpacesMap(Map<ParkingSpotType, Integer> parkingSpotTypeSpacesMap) {
+    public void setParkingSpotTypeSpacesMap(Map<String, ParkingSpotType> parkingSpotTypeSpacesMap) {
         this.parkingSpotTypeSpacesMap = parkingSpotTypeSpacesMap;
     }
 

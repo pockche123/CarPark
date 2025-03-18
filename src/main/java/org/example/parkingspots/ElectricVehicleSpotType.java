@@ -27,6 +27,7 @@ public class ElectricVehicleSpotType extends ParkingSpotType {
 
     @Override
     public void printAvailableSpots() {
+        System.out.println("Electric Vehicle spots: ");
         parkingSpotStrategy.printAvailableSpots();
     }
 
