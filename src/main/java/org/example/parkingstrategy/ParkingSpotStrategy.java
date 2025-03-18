@@ -5,4 +5,5 @@ public interface ParkingSpotStrategy {
     Integer parkCar();
     void leaveSpot(int spot);
     void printAvailableSpots();
+    int getSpacesLeft();
 }

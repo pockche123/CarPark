@@ -32,6 +32,10 @@ public class NormalSpotType extends ParkingSpotType {
         spotStrategy.printAvailableSpots();
     }
 
+    @Override
+    public int getSpacesLeft() {
+        return spotStrategy.getSpacesLeft();
+    }
 
 
 }
