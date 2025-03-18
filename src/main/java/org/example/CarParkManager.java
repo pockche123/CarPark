@@ -45,20 +45,18 @@ public class CarParkManager {
 
     }
 
-    public boolean isNumber(String option){
-
-    }
-
-    public boolean checkValidOption(String option){
-        boolean numeric = false;
-        try{
-            int num = Integer.parseInt(option);
-        } catch(NumberFormatException e){
-
-        }
 
 
-    }
+//    public boolean checkValidOption(String option){
+//        boolean numeric = false;
+//        try{
+//            int num = Integer.parseInt(option);
+//        } catch(NumberFormatException e){
+//
+//        }
+//
+//
+//    }
 
     public void parkInASpot(){
 
