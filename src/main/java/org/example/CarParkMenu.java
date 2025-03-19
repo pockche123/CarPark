@@ -16,9 +16,10 @@ public class CarParkMenu {
     private CarPark carPark;
     private String spotKey;
     private CarParkManager parkManager = new CarParkManager();
+    private boolean run  = true;
 
     public void showMenu() {
-        while (true) {
+        while (run) {
             System.out.println("--------------- Welcome to PJ's Parking -------------------");
             System.out.println(" Please pick the option for the parking type: ");
             System.out.println(" 1. Standard ");
@@ -38,7 +39,8 @@ public class CarParkMenu {
 
             if(choice == 4){
                 System.out.println("Exiting menu...");
-                return;
+                run = false;
+                break;
             }
 
             showChoiceResults(choice);
@@ -64,12 +66,46 @@ public class CarParkMenu {
     }
 
     public void pickMemberType(){
-        System.out.println("HELLO " + spotKey);
+        while(run) {
+            System.out.println("Please select the type of membership: ");
+            System.out.println("1. Member");
+            System.out.println("2. Non-member");
+            System.out.println("3. Go back");
+            System.out.println("4. Exit");
+            if (!stdin.hasNextInt()) {
+                System.err.println("Invalid input! Please enter a number (1-4).");
+                stdin.nextLine();
+                continue;
+            }
+            int choice = stdin.nextInt();
+            switch(choice){
+                case 1:
+                    registerMember();
+                    break;
+                case 2:
+                    registerNonMember();
+                    break;
+                case 3:
+                    return;
+                case 4:
+                    System.out.println("Exiting menu...");
+                    run = false;
+                    break;
+                default:
+                    System.err.println("Invalid choice. Please try again.");
+                    break;
+
+
+            }
+
+        }
+
+
     }
 
     private void checkForSpaces(ParkingSpotType spotType){
 
-        }
+    }
 
     private void registerNonMember() {
         while(true) {
