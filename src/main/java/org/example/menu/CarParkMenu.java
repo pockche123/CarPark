@@ -16,10 +16,12 @@ public class CarParkMenu {
     private String spotKey;
     private CarParkManager parkManager = new CarParkManager();
     private boolean run  = true;
+    private final CarParkView parkView = new CarParkView();
 
     public void start() {
         while (run) {
 
+            parkView.showStartMenu();
 
             if (!stdin.hasNextInt()) {
                 System.err.println("Invalid input! Please enter a number (1-4).");
@@ -37,11 +39,11 @@ public class CarParkMenu {
                 break;
             }
 
-            showChoiceResults(choice);
+            handleSpaceChoice(choice);
         }
     }
 
-    public void showChoiceResults(int choice){
+    public void handleSpaceChoice(int choice){
         String[] spotTypes = {"normal", "handicapped", "electric" };
         String[] spotNames = {"STANDARD", "ACCESSIBLE", "EV"};
         if(choice >=1 && choice <=3){
@@ -49,7 +51,7 @@ public class CarParkMenu {
             if( spaces > 0){
                 spotKey = spotTypes[choice-1];
                 System.out.println("There are currently " + spaces + " spaces available for " + spotNames[choice-1]  + " parking." );
-                showMemberType();
+                handleMemberChoice();
             } else{
                 System.out.println("Sorry. There are no more " + spotNames[choice-1] + " spaces.");
             }
@@ -59,13 +61,9 @@ public class CarParkMenu {
         }
     }
 
-    public void showMemberType(){
+    public void handleMemberChoice(){
         while(run) {
-            System.out.println("Please select the type of membership: ");
-            System.out.println("1. Member");
-            System.out.println("2. Non-member");
-            System.out.println("3. Go back");
-            System.out.println("4. Exit");
+            parkView.showMembershipType();
             if (!stdin.hasNextInt()) {
                 System.err.println("Invalid input! Please enter a number (1-4).");
                 stdin.nextLine();

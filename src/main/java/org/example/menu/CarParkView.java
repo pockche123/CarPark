@@ -11,4 +11,12 @@ public class CarParkView {
         System.out.println(" 3. Electric Vehicles (EV) ");
         System.out.println(" 4. Exit ");
     }
+
+    public void showMembershipType(){
+        System.out.println("Please select the type of membership: ");
+        System.out.println("1. Member");
+        System.out.println("2. Non-member");
+        System.out.println("3. Go back");
+        System.out.println("4. Exit");
+    }
 }

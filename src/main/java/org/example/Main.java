@@ -11,7 +11,7 @@ public class Main {
       CarPark park = director.buildAverageCarPark(100);
 
       CarParkMenu menu = new CarParkMenu();
-      menu.showMenu();
+      menu.start();
 
 //      int val = carParkManager.checkForSpaces(park, "NORMAL");
 //        System.out.println(val);
