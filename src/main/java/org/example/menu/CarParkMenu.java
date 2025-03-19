@@ -1,9 +1,8 @@
-package org.example;
+package org.example.menu;
 
+import org.example.CarPark;
+import org.example.CarParkManager;
 import org.example.builder.CarParkDirector;
-import org.example.parkingspots.NormalSpotType;
-import org.example.parkingspots.ParkingSpotType;
-import org.example.parkingstrategy.ParkingSpotStrategy;
 
 import java.util.Scanner;
 
@@ -55,7 +54,7 @@ public class CarParkMenu {
             if( spaces > 0){
                 spotKey = spotTypes[choice-1];
                 System.out.println("There are currently " + spaces + " spaces available for " + spotNames[choice-1]  + " parking." );
-                pickMemberType();
+                showMemberType();
             } else{
                 System.out.println("Sorry. There are no more " + spotNames[choice-1] + " spaces.");
             }
@@ -65,7 +64,7 @@ public class CarParkMenu {
         }
     }
 
-    public void pickMemberType(){
+    public void showMemberType(){
         while(run) {
             System.out.println("Please select the type of membership: ");
             System.out.println("1. Member");
@@ -80,10 +79,10 @@ public class CarParkMenu {
             int choice = stdin.nextInt();
             switch(choice){
                 case 1:
-                    registerMember();
+                    showMemberRegistration();
                     break;
                 case 2:
-                    registerNonMember();
+                    showNonMemberRegistration();
                     break;
                 case 3:
                     return;
@@ -103,11 +102,8 @@ public class CarParkMenu {
 
     }
 
-    private void checkForSpaces(ParkingSpotType spotType){
 
-    }
-
-    private void registerNonMember() {
+    private void showNonMemberRegistration() {
         while(true) {
             System.out.println("Please enter a valid REG number: ");
             String reg = stdin.nextLine();
@@ -117,7 +113,7 @@ public class CarParkMenu {
         }
     }
 
-    private void registerMember() {
+    private void showMemberRegistration() {
         System.out.println("hello you are in member ");
     }
 }
