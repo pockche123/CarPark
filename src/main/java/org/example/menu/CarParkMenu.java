@@ -20,56 +20,31 @@ public class CarParkMenu {
 
     public void start() {
         while (run) {
-
             parkView.showStartMenu();
-
-            if (!stdin.hasNextInt()) {
-                System.err.println("Invalid input! Please enter a number (1-4).");
-                stdin.nextLine();
-                continue;
-            }
-
-            int choice = stdin.nextInt();
-            stdin.nextLine();
+            int choice = getValidInput(1,4);
             carPark = director.buildAverageCarPark(100);
-
             if(choice == 4){
                 System.out.println("Exiting menu...");
                 run = false;
                 break;
             }
-
             handleSpaceChoice(choice);
         }
     }
 
     public void handleSpaceChoice(int choice){
         String[] spotTypes = {"normal", "handicapped", "electric" };
-        String[] spotNames = {"STANDARD", "ACCESSIBLE", "EV"};
-        if(choice >=1 && choice <=3){
-            int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
-            if( spaces > 0){
-                spotKey = spotTypes[choice-1];
-                System.out.println("There are currently " + spaces + " spaces available for " + spotNames[choice-1]  + " parking." );
-                handleMemberChoice();
-            } else{
-                System.out.println("Sorry. There are no more " + spotNames[choice-1] + " spaces.");
-            }
-
-        } else{
-            System.err.println("Invalid choice. Please try again.");
+        int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
+        parkView.showChoiceResults(choice, spaces);
+        if(spaces > 0){
+            parkView.showMembershipType();
+            int membershipChoice = getValidInput(1,4);
+            handleMemberChoice(membershipChoice);
         }
+
     }
 
-    public void handleMemberChoice(){
-        while(run) {
-            parkView.showMembershipType();
-            if (!stdin.hasNextInt()) {
-                System.err.println("Invalid input! Please enter a number (1-4).");
-                stdin.nextLine();
-                continue;
-            }
-            int choice = stdin.nextInt();
+    public void handleMemberChoice(int choice){
             switch(choice){
                 case 1:
                     showMemberRegistration();
@@ -86,13 +61,7 @@ public class CarParkMenu {
                 default:
                     System.err.println("Invalid choice. Please try again.");
                     break;
-
-
-            }
-
         }
-
-
     }
 
 
@@ -109,4 +78,23 @@ public class CarParkMenu {
     private void showMemberRegistration() {
         System.out.println("hello you are in member ");
     }
+
+    private int getValidInput(int min, int max){
+        while(true){
+            if (!stdin.hasNextInt()) {
+                System.err.println("Invalid input! Please enter a number (" + min + "-" + max + ").");
+                stdin.nextLine();
+                continue;
+            }
+
+            int choice = stdin.nextInt();
+            stdin.nextLine();
+            if (choice >= min && choice <= max) {
+                return choice;
+            } else {
+                System.err.println("Invalid choice! Please enter a number between " + min + " and " + max + ".");
+            }
+        }
+    }
+
 }
