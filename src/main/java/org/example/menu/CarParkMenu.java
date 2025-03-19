@@ -17,14 +17,9 @@ public class CarParkMenu {
     private CarParkManager parkManager = new CarParkManager();
     private boolean run  = true;
 
-    public void showMenu() {
+    public void start() {
         while (run) {
-            System.out.println("--------------- Welcome to PJ's Parking -------------------");
-            System.out.println(" Please pick the option for the parking type: ");
-            System.out.println(" 1. Standard ");
-            System.out.println(" 2. Accessible  ");
-            System.out.println(" 3. Electric Vehicles (EV) ");
-            System.out.println(" 4. Exit ");
+
 
             if (!stdin.hasNextInt()) {
                 System.err.println("Invalid input! Please enter a number (1-4).");
