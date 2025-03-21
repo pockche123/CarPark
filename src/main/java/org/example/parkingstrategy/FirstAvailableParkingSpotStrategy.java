@@ -12,13 +12,17 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
         }
     }
     @Override
-    public Integer findNearestSpot() {
+    public int findNearestSpot() {
         return availableSpot.first();
     }
 
     @Override
-    public Integer parkCar() {
-        return availableSpot.pollFirst();
+    public int parkCar() {
+        if(availableSpot.isEmpty()) {
+            return -1;
+        } else{
+            return availableSpot.pollFirst();
+        }
     }
 
     @Override

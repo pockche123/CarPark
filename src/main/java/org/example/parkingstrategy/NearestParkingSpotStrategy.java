@@ -1,5 +1,7 @@
 package org.example.parkingstrategy;
 
+import org.example.ParkingSpot;
+
 import java.util.PriorityQueue;
 
 public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
@@ -12,20 +14,30 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
             nearestSpot.add(i);
         }
     }
+
     @Override
-    public Integer findNearestSpot(){
-        return nearestSpot.peek();
+    public int findNearestSpot(){
+        if(!nearestSpot.isEmpty()) {
+            return nearestSpot.peek();
+        } else{
+            return -1;
+        }
     }
 
     @Override
-    public Integer parkCar(){
-        return nearestSpot.poll();
+    public int parkCar(){
+        if(!nearestSpot.isEmpty()) {
+            return nearestSpot.poll();
+        } else{
+            return -1;
+        }
     }
 
     @Override
     public void leaveSpot(int spot){
         nearestSpot.add(spot);
     }
+
 
     @Override
     public void printAvailableSpots(){
