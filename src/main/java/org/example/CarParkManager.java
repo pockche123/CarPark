@@ -9,7 +9,12 @@ import java.util.Scanner;
 
 public class CarParkManager {
 
-    private CarParkDirector director;
+    private CarParkDirector director = new CarParkDirector();
+    private CarRegistry registry = new CarRegistry();
+    private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
+    private EntryBarrier entryBarrier = new EntryBarrier();
+    private Sensor sensor;
+
 
 
 //    private Barrier barrier;
@@ -18,7 +23,13 @@ public class CarParkManager {
 //    private FullSign fullSign;
 //    private CarRegistry carRegistry;
 
-    public CarParkManager(){}
+    public CarParkManager(){
+
+    }
+
+    public CarPark initCarPark(int capacity){
+        return director.buildAverageCarPark(capacity);
+    }
 
     public int checkForSpaces(CarPark park, String key){
         Map<String, ParkingSpotType> map = park.getParkingSpotTypeSpacesMap();
@@ -29,6 +40,26 @@ public class CarParkManager {
         } else {
             return map.get(key.toLowerCase()).getSpacesLeft();
         }
+    }
+
+    public boolean addNonmemberRegistry(String reg, Car car){
+        return registry.addCar(reg, car);
+    }
+
+    public boolean addMemberRegistry(int barcode, Car car){
+        return memberCarRegistry.addCar(String.valueOf(barcode), car);
+    }
+
+    public boolean isCarDetected(Car car){
+        return sensor.isCarPresent();
+    }
+
+    public void raiseEntryBarrier(){
+        entryBarrier.raise();
+    }
+
+    public void lowerEntryBarrier(){
+        entryBarrier.lower();
     }
 
 

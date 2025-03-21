@@ -5,7 +5,7 @@ import org.example.menu.CarParkMenu;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
       CarParkManager carParkManager = new CarParkManager();
       CarParkDirector director = new CarParkDirector();
       CarPark park = director.buildAverageCarPark(100);

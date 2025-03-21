@@ -1,8 +1,11 @@
 package org.example.menu;
 
+import org.example.Car;
 import org.example.CarPark;
 import org.example.CarParkManager;
+import org.example.EntryBarrier;
 import org.example.builder.CarParkDirector;
+import org.example.utils.ValidationUtils;
 
 import java.util.Scanner;
 
@@ -14,11 +17,15 @@ public class CarParkMenu {
     private CarParkDirector director = new CarParkDirector();
     private CarPark carPark;
     private String spotKey;
+    private String reg;
+    private String barcode;
     private CarParkManager parkManager = new CarParkManager();
     private boolean run  = true;
     private final CarParkView parkView = new CarParkView();
 
-    public void start() {
+
+
+    public void start() throws InterruptedException {
         while (run) {
             parkView.showStartMenu();
             int choice = getValidInput(1,4);
@@ -32,7 +39,7 @@ public class CarParkMenu {
         }
     }
 
-    public void handleSpaceChoice(int choice){
+    public void handleSpaceChoice(int choice) throws InterruptedException {
         String[] spotTypes = {"normal", "handicapped", "electric" };
         int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
         parkView.showChoiceResults(choice, spaces);
@@ -44,13 +51,13 @@ public class CarParkMenu {
 
     }
 
-    public void handleMemberChoice(int choice){
+    public void handleMemberChoice(int choice) throws InterruptedException {
             switch(choice){
                 case 1:
-                    showMemberRegistration();
+                    handleMemberRegistration();
                     break;
                 case 2:
-                    showNonMemberRegistration();
+                    handleNonMemberRegistration();
                     break;
                 case 3:
                     return;
@@ -64,20 +71,41 @@ public class CarParkMenu {
         }
     }
 
+    private void handleMemberRegistration() throws InterruptedException {
+        System.out.println("Please enter your barcode: ");
+        barcode = getValidBarcode(10);
+        Car car = new Car(barcode);
+        boolean carRegistered = parkManager.addNonmemberRegistry(barcode,car);
+        if(carRegistered){
+            handleSensorDetectCar(car);
+        }
 
-    private void showNonMemberRegistration() {
-        while(true) {
-            System.out.println("Please enter a valid REG number: ");
-            String reg = stdin.nextLine();
+
+    }
+
+    private void handleNonMemberRegistration() throws InterruptedException {
+        System.out.println("Please enter your reg number: ");
+        reg = getValidString(7);
+        Car car = new Car(reg);
+        boolean carRegistered = parkManager.addNonmemberRegistry(reg,car);
+        if(carRegistered){
+            handleSensorDetectCar(car);
+        }
+
+    }
+
+    private void handleSensorDetectCar(Car car) throws InterruptedException {
+        boolean sensorDetect = parkManager.isCarDetected(car);
+        if(sensorDetect){
+            parkManager.raiseEntryBarrier();
+            System.out.println("Car Entering ... ");
+            Thread.sleep(5000);
 
 
-            System.out.println("Car");
+            System.out.println("Unable to detect car");
         }
     }
 
-    private void showMemberRegistration() {
-        System.out.println("hello you are in member ");
-    }
 
     private int getValidInput(int min, int max){
         while(true){
@@ -86,7 +114,6 @@ public class CarParkMenu {
                 stdin.nextLine();
                 continue;
             }
-
             int choice = stdin.nextInt();
             stdin.nextLine();
             if (choice >= min && choice <= max) {
@@ -96,5 +123,33 @@ public class CarParkMenu {
             }
         }
     }
+
+    private String getValidString(int length){
+        while (true) {
+            String input = stdin.nextLine();
+            if (input.length() != length ) {
+                System.err.println("Invalid input! Please enter a valid input.");
+                continue;
+            }
+            return input;
+        }
+    }
+
+    private String getValidBarcode(int length){
+        while (true) {
+            String input = stdin.nextLine();
+            if (input.length() != length || !ValidationUtils.isNumber(input) ) {
+                System.err.println("Invalid input! Please enter a valid input.");
+                continue;
+            }
+            return input;
+        }
+    }
+
+
+// next remove when you go back from cancelling the registration
+//    car enters the car park
+//    picks the spot
+
 
 }
