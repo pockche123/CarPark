@@ -13,7 +13,7 @@ public class CarParkManager {
     private CarRegistry registry = new CarRegistry();
     private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
     private EntryBarrier entryBarrier = new EntryBarrier();
-    private Sensor sensor;
+    private Sensor sensor = new Sensor();
 
 
 
@@ -50,7 +50,15 @@ public class CarParkManager {
         return memberCarRegistry.addCar(String.valueOf(barcode), car);
     }
 
-    public boolean isCarDetected(Car car){
+    public void sensorDetectCar(Car car){
+        sensor.setCar(car);
+    }
+
+    public void sensorUndetectCar(){
+        sensor.setCar(null);
+    }
+
+    public boolean isCarDetected(){
         return sensor.isCarPresent();
     }
 

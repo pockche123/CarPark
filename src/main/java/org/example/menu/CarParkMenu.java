@@ -1,9 +1,6 @@
 package org.example.menu;
 
-import org.example.Car;
-import org.example.CarPark;
-import org.example.CarParkManager;
-import org.example.EntryBarrier;
+import org.example.*;
 import org.example.builder.CarParkDirector;
 import org.example.utils.ValidationUtils;
 
@@ -95,15 +92,24 @@ public class CarParkMenu {
     }
 
     private void handleSensorDetectCar(Car car) throws InterruptedException {
-        boolean sensorDetect = parkManager.isCarDetected(car);
+        parkManager.sensorDetectCar(car);
+        boolean sensorDetect = parkManager.isCarDetected();
         if(sensorDetect){
             parkManager.raiseEntryBarrier();
             System.out.println("Car Entering ... ");
             Thread.sleep(5000);
-
-
-            System.out.println("Unable to detect car");
+            System.out.println("Car Entered");
+            parkManager.sensorUndetectCar();
+            sensorDetect = parkManager.isCarDetected();
+            if(!sensorDetect){
+                parkManager.lowerEntryBarrier();
+                handleChooseCarSpace();
+            }
         }
+    }
+
+    private void handleChooseCarSpace(){
+        System.out.println("Choosing car space");
     }
 
 
