@@ -4,6 +4,8 @@ package org.example;
 public class Sensor {
     private Car car;
 
+    public Sensor(){};
+
     public Sensor(Car car){
         this.car = car;
     }
