@@ -16,6 +16,7 @@ public class CarParkMenu {
     private String spotKey;
     private String reg;
     private String barcode;
+    private ParkingSpotType spotType;
     private CarParkManager parkManager = new CarParkManager();
     private boolean run  = true;
     private final CarParkView parkView = new CarParkView();
@@ -23,10 +24,10 @@ public class CarParkMenu {
 
 
     public void start() throws InterruptedException {
+        carPark = director.buildAverageCarPark(100);
         while (run) {
             parkView.showStartMenu();
             int choice = getValidInput(1,4);
-            carPark = director.buildAverageCarPark(100);
             if(choice == 4){
                 System.out.println("Exiting menu...");
                 run = false;
@@ -39,7 +40,8 @@ public class CarParkMenu {
     public void handleSpaceChoice(int choice) throws InterruptedException {
 //        String[] spotTypes = {"normal", "handicapped", "electric" };
         ParkingSpotType[] spotTypes = ParkingSpotType.values();
-        int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
+        spotType = spotTypes[choice-1];
+        int spaces = carPark.getSpotCount(spotType);
         parkView.showChoiceResults(choice, spaces);
         if(spaces > 0){
             parkView.showMembershipType();
@@ -100,6 +102,7 @@ public class CarParkMenu {
             System.out.println("Car Entering ... ");
             Thread.sleep(5000);
             System.out.println("Car Entered");
+            carPark.decrementSpotCount(spotType);
             parkManager.sensorUndetectCar();
             sensorDetect = parkManager.isCarDetected();
             if(!sensorDetect){
