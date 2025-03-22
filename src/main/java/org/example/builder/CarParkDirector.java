@@ -30,12 +30,6 @@ public class CarParkDirector{
             }
         }
 
-//        for(int i=2; i< capacity; i+=2){
-//            ParkingSpot spot = spots.get(i);
-//            distance += 2.0;
-//            spot.setDistanceFromEntrance(distance);
-//        }
-
         for(int i=0; i<handicappedSpaces; i++){
             ParkingSpot spot = spots.get(i);
             spot.setType(ParkingSpotType.ACCESSIBLE);

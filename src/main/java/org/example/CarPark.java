@@ -11,12 +11,19 @@ public class CarPark {
     private List<ParkingSpot> parkingSpots;
     private Sensor entrySensor = new Sensor();
     private Sensor exitSensor = new Sensor();
+    private Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
 
 
 //    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
 
     public CarPark(int capacity){
         this.capacity = capacity;
+    }
+
+
+    public void countSpots(){
+        parkingSpots.forEach(spot -> spotCount.put(spot.getType(), spotCount.getOrDefault(spot.getType(), 0) + 1));
+        spotCount.forEach((key,val) -> System.out.println(key + "," + val));
     }
 
     public List<ParkingSpot> getParkingSpots() {
