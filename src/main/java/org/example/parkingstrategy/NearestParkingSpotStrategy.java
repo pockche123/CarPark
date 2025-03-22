@@ -1,56 +1,54 @@
 package org.example.parkingstrategy;
 
 import org.example.ParkingSpot;
+import org.example.ParkingSpotStatus;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
-    private final PriorityQueue<Integer> nearestSpot;
+    private final PriorityQueue<ParkingSpot> nearestSpots;
 
 
-    public NearestParkingSpotStrategy(int start, int end){
-        nearestSpot = new PriorityQueue<>();
-        for(int i=start; i<=end; i++){
-            nearestSpot.add(i);
-        }
+    public NearestParkingSpotStrategy(List<ParkingSpot> spots) {
+        nearestSpots = new PriorityQueue<>(Comparator.comparingDouble(ParkingSpot::getDistanceFromEntrance));
+        nearestSpots.addAll(spots);
+
     }
 
     @Override
-    public int findNearestSpot(){
-        if(!nearestSpot.isEmpty()) {
-            return nearestSpot.peek();
+    public ParkingSpot findNearestSpot(){
+        if(nearestSpots.isEmpty()){
+            return null;
+        }
+        return nearestSpots.peek();
+    }
+
+    @Override
+    public ParkingSpot parkCar(){
+        if(!nearestSpots.isEmpty()) {
+            ParkingSpot spot = nearestSpots.poll();
+            spot.setStatus(ParkingSpotStatus.OCCUPIED);
+            return nearestSpots.poll();
         } else{
-            return -1;
+            return null;
         }
     }
 
     @Override
-    public int parkCar(){
-        if(!nearestSpot.isEmpty()) {
-            return nearestSpot.poll();
-        } else{
-            return -1;
-        }
-    }
-
-    @Override
-    public void leaveSpot(int spot){
-        nearestSpot.add(spot);
+    public void leaveSpot(ParkingSpot spot){
+        spot.setStatus(ParkingSpotStatus.FREE);
+        nearestSpots.add(spot);
     }
 
 
     @Override
     public void printAvailableSpots(){
-        for(Integer i: nearestSpot){
+        for(Integer i: nearestSpots.){
             System.out.printf(i + ", ");
         }
 
     }
-
-    @Override
-    public int getSpacesLeft() {
-        return nearestSpot.size();
-    }
-
 
 }

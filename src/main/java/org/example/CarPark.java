@@ -1,26 +1,31 @@
 package org.example;
 
 
-import org.example.parkingspots.ParkingSpotType;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 public class CarPark {
     private int capacity;
-    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
+
+    private List<ParkingSpot> parkingSpots;
+    private Sensor entrySensor = new Sensor();
+    private Sensor exitSensor = new Sensor();
+
+
+//    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
 
     public CarPark(int capacity){
         this.capacity = capacity;
     }
 
-    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
-        return parkingSpotTypeSpacesMap;
-    }
-
-    public void setParkingSpotTypeSpacesMap(Map<String, ParkingSpotType> parkingSpotTypeSpacesMap) {
-        this.parkingSpotTypeSpacesMap = parkingSpotTypeSpacesMap;
-    }
+//    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
+//        return parkingSpotTypeSpacesMap;
+//    }
+//
+//    public void setParkingSpotTypeSpacesMap(Map<String, ParkingSpotType> parkingSpotTypeSpacesMap) {
+//        this.parkingSpotTypeSpacesMap = parkingSpotTypeSpacesMap;
+//    }
 
     public void update() {
         //Place your carpark update logic here.
