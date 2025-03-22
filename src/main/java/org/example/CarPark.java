@@ -30,8 +30,8 @@ public class CarPark {
 
     }
 
-    private int getSpotCount(ParkingSpotType type){
-        return spotCount.get(type);
+    public int getSpotCount(ParkingSpotType type){
+        return  spotCount.get(type);
     }
 
     public void decrementSpotCount(ParkingSpotType type){

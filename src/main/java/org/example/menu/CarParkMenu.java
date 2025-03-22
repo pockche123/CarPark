@@ -38,8 +38,8 @@ public class CarParkMenu {
 
     public void handleSpaceChoice(int choice) throws InterruptedException {
 //        String[] spotTypes = {"normal", "handicapped", "electric" };
+        ParkingSpotType[] spotTypes = ParkingSpotType.values();
         int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
-        int spaces = 0;
         parkView.showChoiceResults(choice, spaces);
         if(spaces > 0){
             parkView.showMembershipType();

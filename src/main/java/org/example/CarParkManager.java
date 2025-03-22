@@ -32,7 +32,7 @@ public class CarParkManager {
     }
 
     public int checkForSpaces(CarPark park, ParkingSpotType type){
-        return park.printCarParkSpots();
+        return park.getSpotCount(type);
     }
 
     public boolean addNonmemberRegistry(String reg, Car car){
