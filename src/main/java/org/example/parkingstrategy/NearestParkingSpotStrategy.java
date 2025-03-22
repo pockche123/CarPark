@@ -18,7 +18,7 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
     }
 
     @Override
-    public ParkingSpot findNearestSpot(){
+    public ParkingSpot findSpot(){
         if(nearestSpots.isEmpty()){
             return null;
         }

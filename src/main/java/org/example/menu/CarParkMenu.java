@@ -2,6 +2,8 @@ package org.example.menu;
 
 import org.example.*;
 import org.example.builder.CarParkDirector;
+import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
+import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
 import java.util.Scanner;
@@ -20,11 +22,15 @@ public class CarParkMenu {
     private CarParkManager parkManager = new CarParkManager();
     private boolean run  = true;
     private final CarParkView parkView = new CarParkView();
+    private NearestParkingSpotStrategy nearestStrategy;
+    private FirstAvailableParkingSpotStrategy firstStrategy;
 
 
 
     public void start() throws InterruptedException {
         carPark = director.buildAverageCarPark(100);
+        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
+        firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
         while (run) {
             parkView.showStartMenu();
             int choice = getValidInput(1,4);
@@ -113,7 +119,16 @@ public class CarParkMenu {
     }
 
     private void handleChooseCarSpace(){
-        System.out.println("Choosing car space");
+        parkView.showParkingStrategies();
+        int choice = getValidInput(1,2);
+        switch(choice) {
+            case 1:
+
+
+        }
+
+
+
     }
 
 

@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.builder.CarParkDirector;
 
+import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
+import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
 import java.util.Map;
@@ -14,6 +16,8 @@ public class CarParkManager {
     private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
     private EntryBarrier entryBarrier = new EntryBarrier();
     private Sensor sensor = new Sensor();
+    private NearestParkingSpotStrategy nearestStrategy;
+    private FirstAvailableParkingSpotStrategy firstStrategy;
 
 
 
@@ -28,7 +32,10 @@ public class CarParkManager {
     }
 
     public CarPark initCarPark(int capacity){
-        return director.buildAverageCarPark(capacity);
+        CarPark park = director.buildAverageCarPark(capacity);
+
+        return park;
+
     }
 
     public int checkForSpaces(CarPark park, ParkingSpotType type){
@@ -62,6 +69,8 @@ public class CarParkManager {
     public void lowerEntryBarrier(){
         entryBarrier.lower();
     }
+
+    public
 
 
 

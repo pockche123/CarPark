@@ -15,7 +15,7 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
         availableSpots.addAll(spots);
     }
     @Override
-    public ParkingSpot findNearestSpot() {
+    public ParkingSpot findSpot() {
         if(availableSpots.isEmpty()){
             return null;
         }
