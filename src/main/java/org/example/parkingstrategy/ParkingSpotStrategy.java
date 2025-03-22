@@ -6,7 +6,7 @@ public interface ParkingSpotStrategy {
     ParkingSpot findNearestSpot();
     ParkingSpot parkCar();
     void leaveSpot(ParkingSpot spot);
-    void printAvailableSpots();
+
 
 
 }

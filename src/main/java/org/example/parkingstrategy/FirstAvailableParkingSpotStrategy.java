@@ -1,44 +1,44 @@
 package org.example.parkingstrategy;
 
+import org.example.ParkingSpot;
+import org.example.ParkingSpotStatus;
+
+import java.util.Comparator;
+import java.util.List;
 import java.util.TreeSet;
 
 public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
-    private final TreeSet<Integer> availableSpot;
+    private final TreeSet<ParkingSpot> availableSpots;
 
-    public FirstAvailableParkingSpotStrategy(int start, int end){
-        availableSpot = new TreeSet<>();
-        for(int i=start; i<=end; i++){
-            availableSpot.add(i);
+    public FirstAvailableParkingSpotStrategy(List<ParkingSpot> spots){
+        availableSpots = new TreeSet<>(Comparator.comparingInt(ParkingSpot::getSpotId));
+        availableSpots.addAll(spots);
+    }
+    @Override
+    public ParkingSpot findNearestSpot() {
+        if(availableSpots.isEmpty()){
+            return null;
         }
-    }
-    @Override
-    public int findNearestSpot() {
-        return availableSpot.first();
+        return availableSpots.first();
     }
 
     @Override
-    public int parkCar() {
-        if(availableSpot.isEmpty()) {
-            return -1;
+    public ParkingSpot parkCar() {
+        if(!availableSpots.isEmpty()) {
+            ParkingSpot spot = availableSpots.pollFirst();
+            spot.setStatus(ParkingSpotStatus.OCCUPIED);
+            return availableSpots.pollFirst();
         } else{
-            return availableSpot.pollFirst();
+            return null;
         }
     }
 
     @Override
-    public void leaveSpot(int spot) {
-        availableSpot.add(spot);
+    public void leaveSpot(ParkingSpot spot) {
+        spot.setStatus(ParkingSpotStatus.FREE);
+        availableSpots.add(spot);
     }
 
-    @Override
-    public void printAvailableSpots() {
-        for(Integer i: availableSpot){
-            System.out.printf(i + ", ");
-        }
-    }
 
-    @Override
-    public int getSpacesLeft() {
-        return availableSpot.size();
-    }
+
 }
