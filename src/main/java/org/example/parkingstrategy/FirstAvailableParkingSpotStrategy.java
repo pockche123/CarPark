@@ -24,13 +24,16 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
 
     @Override
     public ParkingSpot parkCar() {
-        if(!availableSpots.isEmpty()) {
+        while(!availableSpots.isEmpty() && availableSpots.first().getStatus() == ParkingSpotStatus.OCCUPIED){
+            availableSpots.pollFirst();
+        }
+        if(availableSpots.isEmpty()) {
+            return null;
+        }
             ParkingSpot spot = availableSpots.pollFirst();
             spot.setStatus(ParkingSpotStatus.OCCUPIED);
             return availableSpots.pollFirst();
-        } else{
-            return null;
-        }
+
     }
 
     @Override

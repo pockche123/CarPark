@@ -27,13 +27,16 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
 
     @Override
     public ParkingSpot parkCar(){
-        if(!nearestSpots.isEmpty()) {
-            ParkingSpot spot = nearestSpots.poll();
-            spot.setStatus(ParkingSpotStatus.OCCUPIED);
-            return nearestSpots.poll();
-        } else{
+        while(!nearestSpots.isEmpty() && nearestSpots.peek().getStatus() == ParkingSpotStatus.OCCUPIED){
+            nearestSpots.poll();
+        }
+        if(nearestSpots.isEmpty()){
             return null;
         }
+
+        ParkingSpot spot = nearestSpots.poll();
+        spot.setStatus(ParkingSpotStatus.OCCUPIED);
+        return nearestSpots.poll();
     }
 
     @Override

@@ -15,7 +15,6 @@ public class CarParkMenu {
     private final Scanner stdin = new Scanner(System.in);
     private CarParkDirector director = new CarParkDirector();
     private CarPark carPark;
-    private String spotKey;
     private String reg;
     private String barcode;
     private ParkingSpotType spotType;
@@ -24,6 +23,7 @@ public class CarParkMenu {
     private final CarParkView parkView = new CarParkView();
     private NearestParkingSpotStrategy nearestStrategy;
     private FirstAvailableParkingSpotStrategy firstStrategy;
+    private ParkingSpot spot;
 
 
 
@@ -123,8 +123,14 @@ public class CarParkMenu {
         int choice = getValidInput(1,2);
         switch(choice) {
             case 1:
-
-
+                nearestStrategy.findSpot();
+                break;
+            case 2:
+                firstStrategy.findSpot();
+                break;
+            default:
+                System.err.println("Invalid choice. Please try again.");
+                break;
         }
 
 
