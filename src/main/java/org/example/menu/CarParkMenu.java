@@ -123,10 +123,12 @@ public class CarParkMenu {
         int choice = getValidInput(1,2);
         switch(choice) {
             case 1:
-                nearestStrategy.findSpot();
+                spot = parkManager.parkCar(nearestStrategy);
+                System.out.println(spot);
                 break;
             case 2:
-                firstStrategy.findSpot();
+                spot = parkManager.parkCar(firstStrategy);
+                System.out.println(spot);
                 break;
             default:
                 System.err.println("Invalid choice. Please try again.");

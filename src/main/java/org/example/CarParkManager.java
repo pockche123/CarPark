@@ -4,6 +4,7 @@ import org.example.builder.CarParkDirector;
 
 import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
+import org.example.parkingstrategy.ParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
 import java.util.Map;
@@ -70,7 +71,9 @@ public class CarParkManager {
         entryBarrier.lower();
     }
 
-    public
+    public ParkingSpot parkCar(ParkingSpotStrategy spotStrategy, ParkingSpotType type){
+        return spotStrategy.parkCar(type);
+    }
 
 
 
