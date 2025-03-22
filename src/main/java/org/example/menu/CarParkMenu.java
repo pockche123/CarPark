@@ -37,8 +37,8 @@ public class CarParkMenu {
     }
 
     public void handleSpaceChoice(int choice) throws InterruptedException {
-        String[] spotTypes = {"normal", "handicapped", "electric" };
-//        int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
+//        String[] spotTypes = {"normal", "handicapped", "electric" };
+        int spaces = parkManager.checkForSpaces(carPark, spotTypes[choice-1]);
         int spaces = 0;
         parkView.showChoiceResults(choice, spaces);
         if(spaces > 0){

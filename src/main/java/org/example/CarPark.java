@@ -11,7 +11,10 @@ public class CarPark {
     private List<ParkingSpot> parkingSpots;
     private Sensor entrySensor = new Sensor();
     private Sensor exitSensor = new Sensor();
-    private Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
+
+
+
+    private final Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
 
 
 //    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
@@ -21,9 +24,26 @@ public class CarPark {
     }
 
 
-    public void countSpots(){
-        parkingSpots.forEach(spot -> spotCount.put(spot.getType(), spotCount.getOrDefault(spot.getType(), 0) + 1));
-        spotCount.forEach((key,val) -> System.out.println(key + "," + val));
+    public void setSpotCount(){
+        parkingSpots
+                .forEach(spot -> spotCount.put(spot.getType(), spotCount.getOrDefault(spot.getType(), 0) + 1));
+
+    }
+
+    private int getSpotCount(ParkingSpotType type){
+        return spotCount.get(type);
+    }
+
+    public void decrementSpotCount(ParkingSpotType type){
+        spotCount.put(type, spotCount.get(type)-1);
+    }
+
+    public void incrementSpotCount(ParkingSpotType type){
+        spotCount.put(type, spotCount.get(type)+1);
+    }
+
+    public void printCarParkSpots(){
+        spotCount.forEach((key,val) -> System.out.println(key + ": " + val));
     }
 
     public List<ParkingSpot> getParkingSpots() {
@@ -40,6 +60,10 @@ public class CarPark {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public Map<ParkingSpotType, Integer> getSpotCount() {
+        return spotCount;
     }
 
     //    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {

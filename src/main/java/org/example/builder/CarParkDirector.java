@@ -55,6 +55,7 @@ public class CarParkDirector{
         }
 
         carPark.setParkingSpots(spots);
+        carPark.setSpotCount();
 
         carPark.getParkingSpots().forEach(System.out::println);
 
