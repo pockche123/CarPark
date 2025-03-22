@@ -19,7 +19,23 @@ public class CarPark {
         this.capacity = capacity;
     }
 
-//    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
+    public List<ParkingSpot> getParkingSpots() {
+        return parkingSpots;
+    }
+
+    public void setParkingSpots(List<ParkingSpot> parkingSpots) {
+        this.parkingSpots = parkingSpots;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    //    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
 //        return parkingSpotTypeSpacesMap;
 //    }
 //

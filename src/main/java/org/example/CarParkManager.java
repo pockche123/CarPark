@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.builder.CarParkDirector;
-import org.example.parkingspots.ParkingSpotType;
+
 import org.example.utils.ValidationUtils;
 
 import java.util.Map;
@@ -31,16 +31,16 @@ public class CarParkManager {
         return director.buildAverageCarPark(capacity);
     }
 
-    public int checkForSpaces(CarPark park, String key){
-        Map<String, ParkingSpotType> map = park.getParkingSpotTypeSpacesMap();
-        if(key.equalsIgnoreCase("normal")){
-            return map.get("normal1").getSpacesLeft() + map.get("normal2").getSpacesLeft();
-        } else if(!map.containsKey(key)){
-            return -1;
-        } else {
-            return map.get(key.toLowerCase()).getSpacesLeft();
-        }
-    }
+//    public int checkForSpaces(CarPark park, String key){
+//        Map<String, ParkingSpotType> map = park.getParkingSpotTypeSpacesMap();
+//        if(key.equalsIgnoreCase("normal")){
+//            return map.get("normal1").getSpacesLeft() + map.get("normal2").getSpacesLeft();
+//        } else if(!map.containsKey(key)){
+//            return -1;
+//        } else {
+//            return map.get(key.toLowerCase()).getSpacesLeft();
+//        }
+//    }
 
     public boolean addNonmemberRegistry(String reg, Car car){
         return registry.addCar(reg, car);

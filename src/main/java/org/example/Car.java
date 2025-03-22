@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.parkingspots.ParkingSpotType;
+
 
 import java.time.LocalDateTime;
 
@@ -11,7 +11,6 @@ public class Car {
     private LocalDateTime enterTime;
     private LocalDateTime leaveTime;
     private Ticket ticket;
-    private ParkingSpotType spotType;
     private boolean isMember;
 
     public Car(){
@@ -35,13 +34,7 @@ public class Car {
         this.barcode = barcode;
     }
 
-    public ParkingSpotType getSpotType() {
-        return spotType;
-    }
 
-    public void setSpotType(ParkingSpotType spotType) {
-        this.spotType = spotType;
-    }
 
     public Ticket getTicket() {
         return ticket;

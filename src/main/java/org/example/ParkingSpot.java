@@ -2,12 +2,18 @@ package org.example;
 
 public class ParkingSpot {
     private int spotId;
-    private SpotType type;
+    private ParkingSpotType type;
     private double distanceFromEntrance;
     private ParkingSpotStatus status;
 
-    private boolean taken = false;
-    public ParkingSpot(int id, SpotType type, double distance){
+
+    public ParkingSpot(int id, double distance){
+        this.spotId = id;
+        this.distanceFromEntrance = distance;
+        this.status = ParkingSpotStatus.FREE;
+    }
+
+    public ParkingSpot(int id, ParkingSpotType type, double distance){
         this.spotId = id;
         this.type = type;
         this.distanceFromEntrance = distance;
@@ -22,9 +28,6 @@ public class ParkingSpot {
         this.status = status;
     }
 
-    public void setTaken(boolean taken) {
-        this.taken = taken;
-    }
 
     public double getDistanceFromEntrance() {
         return distanceFromEntrance;
@@ -34,15 +37,13 @@ public class ParkingSpot {
         this.distanceFromEntrance = distanceFromEntrance;
     }
 
-    public boolean isTaken() {
-        return taken;
-    }
 
-    public SpotType getType() {
+
+    public ParkingSpotType getType() {
         return type;
     }
 
-    public void setType(SpotType type) {
+    public void setType(ParkingSpotType type) {
         this.type = type;
     }
 
@@ -61,7 +62,6 @@ public class ParkingSpot {
                 ", type=" + type +
                 ", distanceFromEntrance=" + distanceFromEntrance +
                 ", status=" + status +
-                ", taken=" + taken +
                 '}';
     }
 

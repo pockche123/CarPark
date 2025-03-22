@@ -1,6 +1,6 @@
 package org.example;
 
-public enum SpotType {
+public enum ParkingSpotType {
     STANDARD,
     ACCESSIBLE,
     ELECTRIC

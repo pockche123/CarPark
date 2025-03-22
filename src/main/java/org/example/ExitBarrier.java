@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.parkingspots.ParkingSpotType;
+
 
 public class ExitBarrier implements Barrier{
     private boolean up;
