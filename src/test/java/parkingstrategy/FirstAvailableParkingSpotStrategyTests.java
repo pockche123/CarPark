@@ -50,9 +50,9 @@ public class FirstAvailableParkingSpotStrategyTests {
         ParkingSpot spotElectric =  strategy.findSpot(ParkingSpotType.ELECTRIC);
 
 
-        assertEquals(spotAccessible.getSpotId(), 1);
-        assertEquals(spotStandard.getSpotId(), 2);
-        assertEquals(spotElectric.getSpotId(), 3);
+        assertEquals(1,spotAccessible.getSpotId());
+        assertEquals(2,spotStandard.getSpotId());
+        assertEquals(3,spotElectric.getSpotId());
 
     }
 
@@ -63,9 +63,9 @@ public class FirstAvailableParkingSpotStrategyTests {
         ParkingSpot spotElectric =  strategy.parkCar(ParkingSpotType.ELECTRIC);
 
 
-        assertEquals(spotAccessible.getSpotId(), 1);
-        assertEquals(spotStandard.getSpotId(), 2);
-        assertEquals(spotElectric.getSpotId(), 3);
+        assertEquals(1, spotAccessible.getSpotId());
+        assertEquals(2, spotStandard.getSpotId());
+        assertEquals(3, spotElectric.getSpotId());
 
     }
 
