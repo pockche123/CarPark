@@ -17,10 +17,10 @@ public class ExitBarrier implements Barrier{
     @Override
     public void raise() {
         if(ticket != null) {
-            System.out.println("Entry barrier raised");
+            System.out.println("Exit barrier raised");
             this.up = true;
         }
-        System.out.println("Entry barrier cannot be raised");
+        System.out.println("Exit barrier cannot be raised");
     }
 
     @Override

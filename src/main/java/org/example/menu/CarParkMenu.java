@@ -121,7 +121,7 @@ public class CarParkMenu {
         }
     }
 
-    private void handleChooseCarSpace(){
+    private void handleChooseCarSpace() throws InterruptedException {
         parkView.showParkingStrategies();
         int choice = getValidInput(1,2);
         switch(choice) {
@@ -142,7 +142,7 @@ public class CarParkMenu {
 
     }
 
-    private void handleUnParkCarSpace(){
+    private void handleUnParkCarSpace() throws InterruptedException {
         System.out.println("Press 'x' to unpark");
         String choice = stdin.nextLine();
         while (!choice.equalsIgnoreCase("x")) {
@@ -156,13 +156,14 @@ public class CarParkMenu {
         handleLeaveCarPark();
     }
 
-    private void handleLeaveCarPark()  {
+    private void handleLeaveCarPark() throws InterruptedException {
         System.out.println("Leaving car park...");
         parkManager.sensorDetectCar(carPark.getExitSensor(), car);
         boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
         if(sensorDetect) {
             parkManager.raiseEntryBarrier();
             System.out.println("Car Exiting ... ");
+            Thread.sleep(2000);
 
             parkManager.sensorUndetectCar(carPark.getExitSensor());
             carPark.incrementSpotCount(spotType);
