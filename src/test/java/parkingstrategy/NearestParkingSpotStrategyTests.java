@@ -1,6 +1,7 @@
 package parkingstrategy;
 
 import org.example.ParkingSpot;
+import org.example.ParkingSpotStatus;
 import org.example.ParkingSpotType;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.junit.After;
@@ -40,22 +41,11 @@ public class NearestParkingSpotStrategyTests {
 
     @Test
     public void test_findSpot_returnsParkingSpot(){
-//        ParkingSpot spotAccessible = strategy.findSpot(ParkingSpotType.ACCESSIBLE);
-//        ParkingSpot spotStandard = strategy.findSpot(ParkingSpotType.STANDARD);
-//        ParkingSpot spotElectric =  strategy.findSpot(ParkingSpotType.ELECTRIC);
-//
-//
-//
-//        assertEquals(10,spotAccessible.getSpotId());
-//        assertEquals(7,spotStandard.getSpotId());
-//        assertEquals(9, spotElectric.getSpotId());
-
         ParkingSpot spotAccessible = strategy.parkCar(ParkingSpotType.ACCESSIBLE);
         ParkingSpot spotAccessible2 = strategy.parkCar(ParkingSpotType.ACCESSIBLE);
         ParkingSpot spotElectric =  strategy.parkCar(ParkingSpotType.ELECTRIC);
         ParkingSpot spotElectric2 = strategy.parkCar(ParkingSpotType.ELECTRIC);
         ParkingSpot spotStandard = strategy.parkCar(ParkingSpotType.STANDARD);
-        spots.forEach(System.out::println);
 
         assertEquals(10,spotAccessible.getSpotId());
         assertEquals(8, spotAccessible2.getSpotId());
@@ -83,6 +73,17 @@ public class NearestParkingSpotStrategyTests {
         assertEquals(6, spotElectric2.getSpotId());
 
     }
+
+    @Test
+    public void test_leaveSpot(){
+        ParkingSpot spot11 = new ParkingSpot(11, ParkingSpotType.STANDARD, 7.0);
+
+        spot11.setStatus(ParkingSpotStatus.OCCUPIED);
+        strategy.leaveSpot(spot11);
+
+        assertEquals(ParkingSpotStatus.FREE, spot11.getStatus());
+    }
+
 
 
 }
