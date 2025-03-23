@@ -24,8 +24,8 @@ public class CarParkMenu {
     private final CarParkView parkView = new CarParkView();
     private NearestParkingSpotStrategy nearestStrategy;
     private FirstAvailableParkingSpotStrategy firstStrategy;
-    private ParkingSpotStrategy parkingStrategy;
     private ParkingSpot spot;
+    private Car car;
 
 
 
@@ -82,8 +82,8 @@ public class CarParkMenu {
     private void handleMemberRegistration() throws InterruptedException {
         System.out.println("Please enter your barcode: ");
         barcode = getValidBarcode(10);
-        Car car = new Car(barcode);
-        boolean carRegistered = parkManager.addNonmemberRegistry(barcode,car);
+        car = new Car(barcode);
+        boolean carRegistered = parkManager.addMemberRegistry(Integer.parseInt(barcode),car);
         if(carRegistered){
             handleSensorDetectCar(car);
         }
@@ -94,7 +94,7 @@ public class CarParkMenu {
     private void handleNonMemberRegistration() throws InterruptedException {
         System.out.println("Please enter your reg number: ");
         reg = getValidString(7);
-        Car car = new Car(reg);
+        car = new Car(reg);
         boolean carRegistered = parkManager.addNonmemberRegistry(reg,car);
         if(carRegistered){
             handleSensorDetectCar(car);
@@ -103,8 +103,8 @@ public class CarParkMenu {
     }
 
     private void handleSensorDetectCar(Car car) throws InterruptedException {
-        parkManager.sensorDetectCar(car);
-        boolean sensorDetect = parkManager.isCarDetected();
+        parkManager.sensorDetectCar(carPark.getEntrySensor(), car);
+        boolean sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
         if(sensorDetect){
             parkManager.raiseEntryBarrier();
             System.out.println("Car Entering ... ");
@@ -112,8 +112,8 @@ public class CarParkMenu {
             System.out.println("Car Entered");
 
             carPark.decrementSpotCount(spotType);
-            parkManager.sensorUndetectCar();
-            sensorDetect = parkManager.isCarDetected();
+            parkManager.sensorUndetectCar(carPark.getEntrySensor());
+            sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
             if(!sensorDetect){
                 parkManager.lowerEntryBarrier();
                 handleChooseCarSpace();
@@ -156,9 +156,30 @@ public class CarParkMenu {
         handleLeaveCarPark();
     }
 
-    private void handleLeaveCarPark(){
+    private void handleLeaveCarPark()  {
         System.out.println("Leaving car park...");
-    }
+        parkManager.sensorDetectCar(carPark.getExitSensor(), car);
+        boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
+        if(sensorDetect) {
+            parkManager.raiseEntryBarrier();
+            System.out.println("Car Exiting ... ");
+
+            parkManager.sensorUndetectCar(carPark.getExitSensor());
+            carPark.incrementSpotCount(spotType);
+            if(reg != null){
+                parkManager.removeNonmemberRegistry(reg);
+            } else{
+                parkManager.removeMemberRegistry(barcode);
+            }
+//            remove from the registry
+        }
+
+        System.out.println("Car has left the car park");
+
+
+
+
+        }
 
 
 

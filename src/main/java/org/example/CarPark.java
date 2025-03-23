@@ -66,6 +66,22 @@ public class CarPark {
         return spotCount;
     }
 
+    public Sensor getEntrySensor() {
+        return entrySensor;
+    }
+
+    public void setEntrySensor(Sensor entrySensor) {
+        this.entrySensor = entrySensor;
+    }
+
+    public Sensor getExitSensor() {
+        return exitSensor;
+    }
+
+    public void setExitSensor(Sensor exitSensor) {
+        this.exitSensor = exitSensor;
+    }
+
     //    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
 //        return parkingSpotTypeSpacesMap;
 //    }

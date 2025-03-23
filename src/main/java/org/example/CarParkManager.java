@@ -16,7 +16,7 @@ public class CarParkManager {
     private CarRegistry registry = new CarRegistry();
     private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
     private EntryBarrier entryBarrier = new EntryBarrier();
-    private Sensor sensor = new Sensor();
+
     private NearestParkingSpotStrategy nearestStrategy;
     private FirstAvailableParkingSpotStrategy firstStrategy;
 
@@ -47,19 +47,27 @@ public class CarParkManager {
         return registry.addCar(reg, car);
     }
 
+    public boolean removeNonmemberRegistry(String reg){
+        return registry.removeCar(reg);
+    }
+
     public boolean addMemberRegistry(int barcode, Car car){
         return memberCarRegistry.addCar(String.valueOf(barcode), car);
     }
 
-    public void sensorDetectCar(Car car){
+    public boolean removeMemberRegistry(String barcode){
+        return memberCarRegistry.removeCar(barcode);
+    }
+
+    public void sensorDetectCar(Sensor sensor, Car car){
         sensor.setCar(car);
     }
 
-    public void sensorUndetectCar(){
+    public void sensorUndetectCar(Sensor sensor){
         sensor.setCar(null);
     }
 
-    public boolean isCarDetected(){
+    public boolean isCarDetected(Sensor sensor){
         return sensor.isCarPresent();
     }
 
