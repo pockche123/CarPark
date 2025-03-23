@@ -34,7 +34,7 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
         Iterator<ParkingSpot> iterator = availableSpots.iterator();
         while(iterator.hasNext()){
             ParkingSpot spot = iterator.next();
-            if(spot.getStatus() == ParkingSpotStatus.FREE && findSpot().getType()  == type){
+            if(spot.getStatus() == ParkingSpotStatus.FREE && spot.getType()  == type){
                 iterator.remove();
                 spot.setStatus(ParkingSpotStatus.OCCUPIED);
                 availableSpots.add(spot);

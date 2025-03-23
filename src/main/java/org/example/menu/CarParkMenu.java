@@ -123,11 +123,11 @@ public class CarParkMenu {
         int choice = getValidInput(1,2);
         switch(choice) {
             case 1:
-                spot = parkManager.parkCar(nearestStrategy);
+                spot = parkManager.parkCar(nearestStrategy, spotType);
                 System.out.println(spot);
                 break;
             case 2:
-                spot = parkManager.parkCar(firstStrategy);
+                spot = parkManager.parkCar(firstStrategy,spotType);
                 System.out.println(spot);
                 break;
             default:
