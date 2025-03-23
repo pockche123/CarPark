@@ -1,22 +1,68 @@
 package org.example;
 
-import org.example.parkingspots.ParkingSpotType;
-
-import java.util.PriorityQueue;
-
 public class ParkingSpot {
     private int spotId;
-    private ParkingSpotType spotType;
-    private boolean taken = false;
-    public ParkingSpot(ParkingSpotType spotType){
-        this.spotType = spotType;
+    private ParkingSpotType type;
+    private double distanceFromEntrance;
+    private ParkingSpotStatus status;
+
+
+    public ParkingSpot(int id, double distance){
+        this.spotId = id;
+        this.distanceFromEntrance = distance;
+        this.status = ParkingSpotStatus.FREE;
     }
 
-    public void setTaken(boolean taken) {
-        this.taken = taken;
+    public ParkingSpot(int id, ParkingSpotType type, double distance){
+        this.spotId = id;
+        this.type = type;
+        this.distanceFromEntrance = distance;
+        this.status = ParkingSpotStatus.FREE;
     }
 
-    public ParkingSpotType getSpotType(){
-        return spotType;
+    public ParkingSpotStatus getStatus() {
+        return status;
     }
+
+    public void setStatus(ParkingSpotStatus status) {
+        this.status = status;
+    }
+
+
+    public double getDistanceFromEntrance() {
+        return distanceFromEntrance;
+    }
+
+    public void setDistanceFromEntrance(double distanceFromEntrance) {
+        this.distanceFromEntrance = distanceFromEntrance;
+    }
+
+
+
+    public ParkingSpotType getType() {
+        return type;
+    }
+
+    public void setType(ParkingSpotType type) {
+        this.type = type;
+    }
+
+    public int getSpotId() {
+        return spotId;
+    }
+
+    public void setSpotId(int spotId) {
+        this.spotId = spotId;
+    }
+
+
+    public String toString() {
+        return "ParkingSpot{" +
+                "spotId=" + spotId +
+                ", type=" + type +
+                ", distanceFromEntrance=" + distanceFromEntrance +
+                ", status=" + status +
+                '}';
+    }
+
 }

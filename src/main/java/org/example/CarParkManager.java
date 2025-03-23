@@ -1,7 +1,10 @@
 package org.example;
 
 import org.example.builder.CarParkDirector;
-import org.example.parkingspots.ParkingSpotType;
+
+import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
+import org.example.parkingstrategy.NearestParkingSpotStrategy;
+import org.example.parkingstrategy.ParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
 import java.util.Map;
@@ -13,7 +16,9 @@ public class CarParkManager {
     private CarRegistry registry = new CarRegistry();
     private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
     private EntryBarrier entryBarrier = new EntryBarrier();
-    private Sensor sensor = new Sensor();
+
+    private NearestParkingSpotStrategy nearestStrategy;
+    private FirstAvailableParkingSpotStrategy firstStrategy;
 
 
 
@@ -28,37 +33,41 @@ public class CarParkManager {
     }
 
     public CarPark initCarPark(int capacity){
-        return director.buildAverageCarPark(capacity);
+        CarPark park = director.buildAverageCarPark(capacity);
+
+        return park;
+
     }
 
-    public int checkForSpaces(CarPark park, String key){
-        Map<String, ParkingSpotType> map = park.getParkingSpotTypeSpacesMap();
-        if(key.equalsIgnoreCase("normal")){
-            return map.get("normal1").getSpacesLeft() + map.get("normal2").getSpacesLeft();
-        } else if(!map.containsKey(key)){
-            return -1;
-        } else {
-            return map.get(key.toLowerCase()).getSpacesLeft();
-        }
+    public int checkForSpaces(CarPark park, ParkingSpotType type){
+        return park.getSpotCount(type);
     }
 
     public boolean addNonmemberRegistry(String reg, Car car){
         return registry.addCar(reg, car);
     }
 
+    public boolean removeNonmemberRegistry(String reg){
+        return registry.removeCar(reg);
+    }
+
     public boolean addMemberRegistry(int barcode, Car car){
         return memberCarRegistry.addCar(String.valueOf(barcode), car);
     }
 
-    public void sensorDetectCar(Car car){
+    public boolean removeMemberRegistry(String barcode){
+        return memberCarRegistry.removeCar(barcode);
+    }
+
+    public void sensorDetectCar(Sensor sensor, Car car){
         sensor.setCar(car);
     }
 
-    public void sensorUndetectCar(){
+    public void sensorUndetectCar(Sensor sensor){
         sensor.setCar(null);
     }
 
-    public boolean isCarDetected(){
+    public boolean isCarDetected(Sensor sensor){
         return sensor.isCarPresent();
     }
 
@@ -69,6 +78,12 @@ public class CarParkManager {
     public void lowerEntryBarrier(){
         entryBarrier.lower();
     }
+
+    public ParkingSpot parkCar(ParkingSpotStrategy spotStrategy, ParkingSpotType type){
+        return spotStrategy.parkCar(type);
+    }
+
+    public void unparkCar(ParkingSpot spot){}
 
 
 

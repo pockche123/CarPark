@@ -1,15 +1,11 @@
 package org.example.builder;
 
 import org.example.CarPark;
-import org.example.parkingspots.ElectricVehicleSpotType;
-import org.example.parkingspots.HandiCappedSpotType;
-import org.example.parkingspots.NormalSpotType;
-import org.example.parkingspots.ParkingSpotType;
-import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
-import org.example.parkingstrategy.NearestParkingSpotStrategy;
-import org.example.parkingstrategy.ParkingSpotStrategy;
-
+import org.example.ParkingSpot;
+import org.example.ParkingSpotType;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CarParkDirector{
@@ -17,40 +13,51 @@ public class CarParkDirector{
     public CarPark buildAverageCarPark(int capacity){
         CarPark carPark = new CarPark(capacity);
 
-        Map<String, ParkingSpotType> parkingSpotTypeMap = new HashMap<>();
 
         int electricSpaces = (int) (0.05 * capacity);
         int handicappedSpaces = (int) (0.05 * capacity);
         int normalSpaces = capacity - electricSpaces - handicappedSpaces;
 
-        ParkingSpotStrategy nearestStrategy = new NearestParkingSpotStrategy(1,normalSpaces/2);
-        ParkingSpotType normal1  = new NormalSpotType(nearestStrategy);
+        List<ParkingSpot> spots = new ArrayList<>();
+        double distance = 2.0;
+        int times = 0;
+        for(int i=0; i<capacity; i++){
+            spots.add(new ParkingSpot(i+1, distance));
+            times +=1;
+            if(times == 2){
+                distance += 1;
+                times = 0;
+            }
+        }
 
+        for(int i=0; i<handicappedSpaces; i++){
+            ParkingSpot spot = spots.get(i);
+            spot.setType(ParkingSpotType.ACCESSIBLE);
+        }
 
-        int start1 = normalSpaces/2 + 1;
-        int end1 = normalSpaces/2 + electricSpaces;
-        ParkingSpotStrategy firstAvailableStrategy = new FirstAvailableParkingSpotStrategy(start1, end1);
-        ParkingSpotType electric = new ElectricVehicleSpotType(firstAvailableStrategy);
+        for(int i=electricSpaces; i< electricSpaces + normalSpaces/2; i++){
+            ParkingSpot spot = spots.get(i);
+            spot.setType(ParkingSpotType.STANDARD);
+        }
+        int aStart = electricSpaces + normalSpaces/2;
 
+        for(int i= aStart; i< aStart + electricSpaces; i++){
+            ParkingSpot spot = spots.get(i);
+            spot.setType(ParkingSpotType.ELECTRIC);
+        }
 
-        int start2 = end1 + 1;
-        int end2 = end1 + handicappedSpaces;
-        firstAvailableStrategy = new FirstAvailableParkingSpotStrategy(start2,end2);
-        ParkingSpotType handicapped = new HandiCappedSpotType(firstAvailableStrategy);
+        int nStart = aStart + electricSpaces;
+        int nEnd = capacity %2 == 0? nStart + normalSpaces/2 : nStart + normalSpaces/2 + 1;
 
+        for(int i=nStart; i< nEnd; i++){
+            ParkingSpot spot = spots.get(i);
+            spot.setType(ParkingSpotType.STANDARD);
+        }
 
-        int start3 = end2 + 1;
-        int end3 = capacity %2 == 0 ? end2 + normalSpaces/2  : end2 + normalSpaces/2 + 1;
-        nearestStrategy = new NearestParkingSpotStrategy(start3,end3);
-        ParkingSpotType normal2 = new NormalSpotType(nearestStrategy);
-
-
-        parkingSpotTypeMap.put( "normal1", normal1);
-        parkingSpotTypeMap.put("electric", electric);
-        parkingSpotTypeMap.put("handicapped", handicapped);
-        parkingSpotTypeMap.put("normal2", normal2);
-
-        carPark.setParkingSpotTypeSpacesMap(parkingSpotTypeMap);
+        carPark.setParkingSpots(spots);
+        carPark.setSpotCount();
+//
+//        carPark.getParkingSpots().forEach(System.out::println);
 
         return carPark;
     }

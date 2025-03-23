@@ -1,9 +1,12 @@
 package org.example.parkingstrategy;
 
+import org.example.ParkingSpot;
+import org.example.ParkingSpotType;
+
 public interface ParkingSpotStrategy {
-    Integer findNearestSpot();
-    Integer parkCar();
-    void leaveSpot(int spot);
-    void printAvailableSpots();
-    int getSpacesLeft();
+    ParkingSpot findSpot(ParkingSpotType type);
+    ParkingSpot parkCar(ParkingSpotType type);
+    void leaveSpot(ParkingSpot spot);
+
+
 }

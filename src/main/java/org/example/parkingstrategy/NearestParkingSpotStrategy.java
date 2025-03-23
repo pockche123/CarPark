@@ -1,43 +1,56 @@
 package org.example.parkingstrategy;
 
-import java.util.PriorityQueue;
+import org.example.ParkingSpot;
+import org.example.ParkingSpotStatus;
+import org.example.ParkingSpotType;
+
+import java.util.*;
 
 public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
-    private final PriorityQueue<Integer> nearestSpot;
+    private final PriorityQueue<ParkingSpot> nearestSpots;
 
 
-    public NearestParkingSpotStrategy(int start, int end){
-        nearestSpot = new PriorityQueue<>();
-        for(int i=start; i<=end; i++){
-            nearestSpot.add(i);
+
+    public NearestParkingSpotStrategy(List<ParkingSpot> spots) {
+        nearestSpots = new PriorityQueue<>(Comparator
+                .comparing((ParkingSpot spot) -> spot.getStatus() == ParkingSpotStatus.FREE? 0:1)
+                .thenComparingDouble(ParkingSpot::getDistanceFromEntrance));
+
+        nearestSpots.addAll(spots);
+
+    }
+
+    @Override
+    public ParkingSpot findSpot(ParkingSpotType type){
+        for(ParkingSpot spot: nearestSpots){
+            if(spot.getStatus() == ParkingSpotStatus.FREE && spot.getType() == type ){
+                return spot;
+            }
         }
-    }
-    @Override
-    public Integer findNearestSpot(){
-        return nearestSpot.peek();
+        return null;
     }
 
     @Override
-    public Integer parkCar(){
-        return nearestSpot.poll();
-    }
-
-    @Override
-    public void leaveSpot(int spot){
-        nearestSpot.add(spot);
-    }
-
-    @Override
-    public void printAvailableSpots(){
-        for(Integer i: nearestSpot){
-            System.out.printf(i + ", ");
+    public ParkingSpot parkCar(ParkingSpotType type ){
+        Iterator<ParkingSpot> iterator = nearestSpots.iterator();
+        while(iterator.hasNext()){
+            ParkingSpot spot = iterator.next();
+            if(spot.getStatus() == ParkingSpotStatus.FREE && spot.getType()  == type){
+                iterator.remove();
+                spot.setStatus(ParkingSpotStatus.OCCUPIED);
+                nearestSpots.add(spot);
+                return spot;
+            }
         }
-
+        return null;
     }
 
     @Override
-    public int getSpacesLeft() {
-        return nearestSpot.size();
+    public void leaveSpot(ParkingSpot spot){
+        nearestSpots.remove(spot);
+        spot.setStatus(ParkingSpotStatus.FREE);
+        nearestSpots.add(spot);
+
     }
 
 

@@ -30,5 +30,12 @@ public class CarParkView {
         System.out.println("4. Exit");
     }
 
+    public void showParkingStrategies(){
+        System.out.println("Please pick how you want to park your car");
+        System.out.println("1. Closest to the gate.");
+        System.out.println("2. First find.");
+
+    }
+
 
 }

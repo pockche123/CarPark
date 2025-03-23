@@ -10,6 +10,11 @@ public class Main {
       CarParkDirector director = new CarParkDirector();
       CarPark park = director.buildAverageCarPark(100);
 
+
+
+
+//      park.printCarParkSpots();
+
       CarParkMenu menu = new CarParkMenu();
       menu.start();
 
