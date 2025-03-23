@@ -11,8 +11,24 @@ public class CarPark {
     private List<ParkingSpot> parkingSpots;
     private Sensor entrySensor = new Sensor();
     private Sensor exitSensor = new Sensor();
+    private EntryBarrier entryBarrier= new EntryBarrier();
+    private ExitBarrier exitBarrier = new ExitBarrier(null);
 
+    public EntryBarrier getEntryBarrier() {
+        return entryBarrier;
+    }
 
+    public void setEntryBarrier(EntryBarrier entryBarrier) {
+        this.entryBarrier = entryBarrier;
+    }
+
+    public ExitBarrier getExitBarrier() {
+        return exitBarrier;
+    }
+
+    public void setExitBarrier(ExitBarrier exitBarrier) {
+        this.exitBarrier = exitBarrier;
+    }
 
     private final Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
 

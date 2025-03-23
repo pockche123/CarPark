@@ -161,19 +161,29 @@ public class CarParkMenu {
         parkManager.sensorDetectCar(carPark.getExitSensor(), car);
         boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
         if(sensorDetect) {
-            parkManager.raiseEntryBarrier();
+            System.out.println("here1 ---");
+            carPark.getExitBarrier().setTicket(spot);
+            System.out.println("here2 --- ");
+            carPark.getExitBarrier().raise();
             System.out.println("Car Exiting ... ");
             Thread.sleep(2000);
 
-            parkManager.sensorUndetectCar(carPark.getExitSensor());
+            carPark.getExitBarrier().lower();
+
+
+
             carPark.incrementSpotCount(spotType);
             if(reg != null){
                 parkManager.removeNonmemberRegistry(reg);
             } else{
                 parkManager.removeMemberRegistry(barcode);
             }
-//            remove from the registry
+
+            parkManager.sensorUndetectCar(carPark.getExitSensor());
+            carPark.getExitBarrier().setTicket(null);
+
         }
+
 
         System.out.println("Car has left the car park");
 

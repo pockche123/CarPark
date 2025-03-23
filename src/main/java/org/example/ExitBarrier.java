@@ -10,6 +10,14 @@ public class ExitBarrier implements Barrier{
         ticket = new Ticket(spot);
     }
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(ParkingSpot spot) {
+        this.ticket = new Ticket(spot);
+    }
+
     public boolean getUp() {
         return up;
     }
@@ -19,12 +27,14 @@ public class ExitBarrier implements Barrier{
         if(ticket != null) {
             System.out.println("Exit barrier raised");
             this.up = true;
+        } else {
+            System.out.println("Exit barrier cannot be raised");
         }
-        System.out.println("Exit barrier cannot be raised");
     }
 
     @Override
     public void lower() {
+        System.out.println("Exit barrier lowered");
         this.up = false;
     }
 }
