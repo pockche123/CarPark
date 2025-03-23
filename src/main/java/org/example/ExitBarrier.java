@@ -6,8 +6,8 @@ public class ExitBarrier implements Barrier{
     private boolean up;
     private Ticket ticket;
 
-    public ExitBarrier(ParkingSpotType spotType){
-        ticket = new Ticket(spotType);
+    public ExitBarrier(ParkingSpot spot){
+        ticket = new Ticket(spot);
     }
 
     public boolean getUp() {

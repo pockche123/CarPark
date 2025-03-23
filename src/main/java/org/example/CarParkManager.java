@@ -75,6 +75,8 @@ public class CarParkManager {
         return spotStrategy.parkCar(type);
     }
 
+    public void unparkCar(ParkingSpot spot){}
+
 
 
 

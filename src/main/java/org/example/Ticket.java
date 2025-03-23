@@ -3,11 +3,11 @@ package org.example;
 
 
 public class Ticket {
-    private ParkingSpotType spotType;
+    private ParkingSpot spot;
 
 
-    public Ticket(ParkingSpotType type){
-        this.spotType = type;
+    public Ticket(ParkingSpot spot){
+        this.spot = spot;
     }
 
 //    ticket price generator pending in next sprint

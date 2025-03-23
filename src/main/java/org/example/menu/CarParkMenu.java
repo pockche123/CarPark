@@ -4,6 +4,7 @@ import org.example.*;
 import org.example.builder.CarParkDirector;
 import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
+import org.example.parkingstrategy.ParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
 import java.util.Scanner;
@@ -23,6 +24,7 @@ public class CarParkMenu {
     private final CarParkView parkView = new CarParkView();
     private NearestParkingSpotStrategy nearestStrategy;
     private FirstAvailableParkingSpotStrategy firstStrategy;
+    private ParkingSpotStrategy parkingStrategy;
     private ParkingSpot spot;
 
 
@@ -108,6 +110,7 @@ public class CarParkMenu {
             System.out.println("Car Entering ... ");
             Thread.sleep(5000);
             System.out.println("Car Entered");
+
             carPark.decrementSpotCount(spotType);
             parkManager.sensorUndetectCar();
             sensorDetect = parkManager.isCarDetected();
@@ -125,19 +128,40 @@ public class CarParkMenu {
             case 1:
                 spot = parkManager.parkCar(nearestStrategy, spotType);
                 System.out.println(spot);
+                handleUnParkCarSpace();
                 break;
             case 2:
                 spot = parkManager.parkCar(firstStrategy,spotType);
                 System.out.println(spot);
+                handleUnParkCarSpace();
                 break;
             default:
                 System.err.println("Invalid choice. Please try again.");
                 break;
         }
 
-
-
     }
+
+    private void handleUnParkCarSpace(){
+        System.out.println("Press 'x' to unpark");
+        String choice = stdin.nextLine();
+        while (!choice.equalsIgnoreCase("x")) {
+            System.err.println("Invalid choice. Please try again.");
+            choice = stdin.nextLine();
+        }
+
+        nearestStrategy.leaveSpot(spot);
+        firstStrategy.leaveSpot(spot);
+        System.out.println(spot);
+        handleLeaveCarPark();
+    }
+
+    private void handleLeaveCarPark(){
+        System.out.println("Leaving car park...");
+    }
+
+
+
 
 
     private int getValidInput(int min, int max){
