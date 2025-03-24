@@ -7,7 +7,6 @@ import java.util.*;
 
 public class CarPark {
     private int capacity;
-
     private List<ParkingSpot> parkingSpots;
     private Sensor entrySensor = new Sensor();
     private Sensor exitSensor = new Sensor();

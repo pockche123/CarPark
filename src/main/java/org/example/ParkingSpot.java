@@ -13,6 +13,13 @@ public class ParkingSpot {
         this.status = ParkingSpotStatus.FREE;
     }
 
+    public ParkingSpot(int id, ParkingSpotType type, double distanceFromEntrance, ParkingSpotStatus status){
+        this.spotId = id;
+        this.type = type;
+        this.distanceFromEntrance = distanceFromEntrance;
+        this.status = status;
+    }
+
     public ParkingSpot(int id, ParkingSpotType type, double distance){
         this.spotId = id;
         this.type = type;

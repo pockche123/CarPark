@@ -62,5 +62,9 @@ public class CarParkDirector{
         return carPark;
     }
 
+    public CarPark buildPreMadeCarPark(){
+        return null;
+    }
+
 
 }

@@ -9,8 +9,6 @@ import org.example.utils.InputUtils;
 public class CarParkMenu {
 
     private CarPark carPark;
-    private String reg;
-    private String barcode;
     private ParkingSpotType spotType;
     private final CarParkManager parkManager = new CarParkManager();
     private final CarParkView parkView = new CarParkView();
@@ -66,7 +64,7 @@ public class CarParkMenu {
 
     private void handleMemberEntry() throws InterruptedException {
         System.out.println("Please enter your barcode: ");
-        barcode = InputUtils.getValidBarcode(10);
+        String barcode = InputUtils.getValidBarcode(10);
         car = new Car(barcode);
         car.setBarcode(barcode);
 
@@ -79,7 +77,7 @@ public class CarParkMenu {
 
     private void handleNonMemberEntry() throws InterruptedException {
         System.out.println("Please enter your reg number: ");
-        reg = InputUtils.getValidString(7);
+        String reg = InputUtils.getValidString(7);
         car = new Car(reg);
         car.setPlate(reg);
         boolean carRegistered = parkManager.addNonmemberRegistry(reg,car);
@@ -89,25 +87,32 @@ public class CarParkMenu {
 
     }
 
-    private void handleSensorDetectCar(Car car) throws InterruptedException {
+    private boolean detectAndAllowEntry(Car car) throws InterruptedException {
         parkManager.sensorDetectCar(carPark.getEntrySensor(), car);
         boolean sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
-        if(sensorDetect){
-            parkManager.raiseEntryBarrier();
-            Thread.sleep(1000);
-            System.out.println("Car Entering ... ");
-            Thread.sleep(1000);
-            System.out.println("Car Entered");
-            Thread.sleep(1000);
-            parkManager.decrementSpotCount(spotType);
-            parkManager.sensorUndetectCar(carPark.getEntrySensor());
-            sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
-            if(!sensorDetect){
+        if (!sensorDetect) return false;
+        parkManager.raiseEntryBarrier();
+        Thread.sleep(1000);
+        System.out.println("Car Entering ... ");
+        Thread.sleep(1000);
+        System.out.println("Car Entered");
+        Thread.sleep(1000);
+        parkManager.decrementSpotCount(spotType);
+
+        return parkManager.isCarDetected(carPark.getEntrySensor());
+    }
+
+
+    private void handleSensorDetectCar(Car car) throws InterruptedException {
+            if(detectAndAllowEntry(car)){
+                parkManager.sensorUndetectCar(carPark.getEntrySensor());
                 parkManager.lowerEntryBarrier();
                 Thread.sleep(1000);
                 handleChooseCarSpace();
+            }else {
+                System.err.println("Something wrong with sensor. Please contact a worker on site...");
+                return;
             }
-        }
     }
 
     private void handleChooseCarSpace() throws InterruptedException {
@@ -117,12 +122,12 @@ public class CarParkMenu {
             case 1:
                 spot = parkManager.parkCar("nearest", spotType);
                 System.out.println(spot);
-                handleUnParkCarSpace();
+                handleLeaveCarSpace();
                 break;
             case 2:
                 spot = parkManager.parkCar("first",spotType);
                 System.out.println(spot);
-                handleUnParkCarSpace();
+                handleLeaveCarSpace();
                 break;
             case 3:
                 handleLeaveCarPark();
@@ -134,15 +139,9 @@ public class CarParkMenu {
 
     }
 
-    private void handleUnParkCarSpace() throws InterruptedException {
-        System.out.println("Press 'x' to unpark");
-//        String choice = stdin.nextLine();
-//        while (!choice.equalsIgnoreCase("x")) {
-//            System.err.println("Invalid choice. Please try again.");
-//            choice = stdin.nextLine();
-//        }
-        InputUtils.validButtonChoice("x");
-
+    private void handleLeaveCarSpace() throws InterruptedException {
+        System.out.println("Press 'x' to leave");
+        InputUtils.waitForSpecificInput("x");
         parkManager.leaveSpot(spot);
         System.out.println(spot);
         handleLeaveCarPark();

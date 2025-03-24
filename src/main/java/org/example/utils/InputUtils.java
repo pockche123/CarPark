@@ -43,9 +43,9 @@ public class InputUtils {
         }
     }
 
-    public static void validButtonChoice(String search){
+    public static void waitForSpecificInput(String expected){
         String choice = stdin.nextLine();
-        while (!choice.equalsIgnoreCase(search)) {
+        while (!choice.equalsIgnoreCase(expected)) {
             System.err.println("Invalid choice. Please try again.");
             choice = stdin.nextLine();
         }
