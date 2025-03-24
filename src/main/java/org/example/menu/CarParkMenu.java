@@ -140,11 +140,25 @@ public class CarParkMenu {
     }
 
     private void handleLeaveCarSpace() throws InterruptedException {
-        System.out.println("Press 'x' to leave");
-        InputUtils.waitForSpecificInput("x");
-        parkManager.leaveSpot(spot);
-        System.out.println(spot);
-        handleLeaveCarPark();
+        System.out.println("Press '1' to leave");
+        System.out.println("Press '2' to change parking space.");
+        int choice = InputUtils.getValidInput(1,2);
+        switch(choice) {
+            case 1:
+                parkManager.leaveSpot(spot);
+                System.out.println(spot);
+                handleLeaveCarPark();
+                break;
+            case 2:
+                parkManager.leaveSpot(spot);
+                handleChooseCarSpace();
+                break;
+            default:
+                System.err.println("Invalid choice. Please try again");
+                break;
+
+        }
+
     }
 
     private void handleLeaveCarPark() throws InterruptedException {
