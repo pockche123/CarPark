@@ -42,4 +42,12 @@ public class InputUtils {
             return input;
         }
     }
+
+    public static void validButtonChoice(String search){
+        String choice = stdin.nextLine();
+        while (!choice.equalsIgnoreCase(search)) {
+            System.err.println("Invalid choice. Please try again.");
+            choice = stdin.nextLine();
+        }
+    }
 }

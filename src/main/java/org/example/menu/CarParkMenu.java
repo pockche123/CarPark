@@ -1,20 +1,13 @@
 package org.example.menu;
 
 import org.example.*;
-import org.example.builder.CarParkDirector;
-import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
-import org.example.parkingstrategy.NearestParkingSpotStrategy;
-import org.example.parkingstrategy.ParkingSpotStrategy;
 import org.example.utils.InputUtils;
-import org.example.utils.ValidationUtils;
 
-import java.util.Scanner;
 
 
 
 public class CarParkMenu {
 
-    private final Scanner stdin = new Scanner(System.in);
     private CarPark carPark;
     private String reg;
     private String barcode;
@@ -64,7 +57,6 @@ public class CarParkMenu {
                     return;
                 case 4:
                     System.out.println("Exiting menu...");
-                    run = false;
                     break;
                 default:
                     System.err.println("Invalid choice. Please try again.");
@@ -82,7 +74,6 @@ public class CarParkMenu {
         if(carRegistered){
             handleSensorDetectCar(car);
         }
-
 
     }
 
@@ -145,11 +136,12 @@ public class CarParkMenu {
 
     private void handleUnParkCarSpace() throws InterruptedException {
         System.out.println("Press 'x' to unpark");
-        String choice = stdin.nextLine();
-        while (!choice.equalsIgnoreCase("x")) {
-            System.err.println("Invalid choice. Please try again.");
-            choice = stdin.nextLine();
-        }
+//        String choice = stdin.nextLine();
+//        while (!choice.equalsIgnoreCase("x")) {
+//            System.err.println("Invalid choice. Please try again.");
+//            choice = stdin.nextLine();
+//        }
+        InputUtils.validButtonChoice("x");
 
         parkManager.leaveSpot(spot);
         System.out.println(spot);
@@ -162,6 +154,7 @@ public class CarParkMenu {
         boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
         Thread.sleep(1000);
         if(sensorDetect) {
+//            payment processing in the future ...
             parkManager.raiseExitBarrier(spot);
             System.out.println("Car Exiting ... ");
             Thread.sleep(1000);
