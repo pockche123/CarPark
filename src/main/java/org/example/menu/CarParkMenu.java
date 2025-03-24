@@ -33,6 +33,7 @@ public class CarParkMenu {
         carPark = director.buildAverageCarPark(100);
         nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
         firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
+        parkManager.isCarParkFull(carPark);
         while (run) {
             parkView.showStartMenu();
             int choice = getValidInput(1,4);
@@ -110,7 +111,6 @@ public class CarParkMenu {
             System.out.println("Car Entering ... ");
             Thread.sleep(5000);
             System.out.println("Car Entered");
-
             carPark.decrementSpotCount(spotType);
             parkManager.sensorUndetectCar(carPark.getEntrySensor());
             sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
