@@ -19,13 +19,13 @@ public class Main {
 
 //      park.printCarParkSpots();
 
-//      CarParkMenu menu = new CarParkMenu();
-//      menu.start();
+      CarParkMenu menu = new CarParkMenu();
+      menu.start();
 
-        ParkingSpotLoader spotLoader = new ParkingSpotLoader();
-
-        List<ParkingSpot> parkingspots = spotLoader.loadParkingSpotsFromJson();
-        parkingspots.forEach(System.out::println);
+//        ParkingSpotLoader spotLoader = new ParkingSpotLoader();
+//
+//        List<ParkingSpot> parkingspots = spotLoader.loadParkingSpotsFromJson();
+//        parkingspots.forEach(System.out::println);
 
 
 

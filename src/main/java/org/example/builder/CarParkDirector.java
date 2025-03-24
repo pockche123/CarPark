@@ -70,6 +70,7 @@ public class CarParkDirector{
         ParkingSpotLoader spotLoader = new ParkingSpotLoader();
         List<ParkingSpot> parkingSpots = spotLoader.loadParkingSpotsFromJson();
         park.setParkingSpots(parkingSpots);
+        park.setSpotCount();
         return park;
     }
 

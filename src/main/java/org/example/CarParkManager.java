@@ -7,6 +7,7 @@ import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.example.parkingstrategy.ParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -26,8 +27,8 @@ public class CarParkManager {
 
 
 
-    public CarPark initCarPark(int capacity){
-        carPark = director.buildAverageCarPark(capacity);
+    public CarPark initCarPark() throws IOException {
+        carPark = director.buildPreMadeCarPark();
         nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
         firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
         return carPark;

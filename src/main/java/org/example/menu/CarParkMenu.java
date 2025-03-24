@@ -3,7 +3,7 @@ package org.example.menu;
 import org.example.*;
 import org.example.utils.InputUtils;
 
-
+import java.io.IOException;
 
 
 public class CarParkMenu {
@@ -16,8 +16,8 @@ public class CarParkMenu {
     private Car car;
 
 
-    public void start() throws InterruptedException {
-        carPark = parkManager.initCarPark(100);
+    public void start() throws InterruptedException, IOException {
+        carPark = parkManager.initCarPark();
         parkManager.isCarParkFull(carPark);
         while (true) {
             parkView.showStartMenu();
