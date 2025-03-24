@@ -3,6 +3,9 @@ package org.example.builder;
 import org.example.CarPark;
 import org.example.ParkingSpot;
 import org.example.ParkingSpotType;
+import org.example.database.ParkingSpotLoader;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,8 +65,12 @@ public class CarParkDirector{
         return carPark;
     }
 
-    public CarPark buildPreMadeCarPark(){
-        return null;
+    public CarPark buildPreMadeCarPark() throws IOException {
+        CarPark park = new CarPark();
+        ParkingSpotLoader spotLoader = new ParkingSpotLoader();
+        List<ParkingSpot> parkingSpots = spotLoader.loadParkingSpotsFromJson();
+        park.setParkingSpots(parkingSpots);
+        return park;
     }
 
 

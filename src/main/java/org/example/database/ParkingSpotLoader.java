@@ -3,10 +3,9 @@ package org.example.database;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.ParkingSpot;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 public class ParkingSpotLoader {
@@ -18,6 +17,6 @@ public class ParkingSpotLoader {
         if(inputStream == null){
             return null;
         }
-        return objectMapper.readValue(ingoputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, ParkingSpot.class));
+        return objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, ParkingSpot.class));
     }
 }

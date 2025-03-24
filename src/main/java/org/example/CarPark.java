@@ -31,8 +31,7 @@ public class CarPark {
 
     private final Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
 
-
-//    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
+    public CarPark(){};
 
     public CarPark(int capacity){
         this.capacity = capacity;
