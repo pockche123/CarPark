@@ -5,6 +5,7 @@ import org.example.builder.CarParkDirector;
 import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.example.parkingstrategy.ParkingSpotStrategy;
+import org.example.utils.InputUtils;
 import org.example.utils.ValidationUtils;
 
 import java.util.Scanner;
@@ -18,23 +19,20 @@ public class CarParkMenu {
     private String reg;
     private String barcode;
     private ParkingSpotType spotType;
-    private CarParkManager parkManager = new CarParkManager();
-    private boolean run  = true;
+    private final CarParkManager parkManager = new CarParkManager();
     private final CarParkView parkView = new CarParkView();
     private ParkingSpot spot;
     private Car car;
 
 
-
     public void start() throws InterruptedException {
         carPark = parkManager.initCarPark(100);
         parkManager.isCarParkFull(carPark);
-        while (run) {
+        while (true) {
             parkView.showStartMenu();
-            int choice = getValidInput(1,4);
+            int choice = InputUtils.getValidInput(1,4);
             if(choice == 4){
                 System.out.println("Exiting menu...");
-                run = false;
                 break;
             }
             handleSpaceChoice(choice);
@@ -48,7 +46,7 @@ public class CarParkMenu {
         parkView.showChoiceResults(choice, spaces);
         if(spaces > 0){
             parkView.showMembershipType();
-            int membershipChoice = getValidInput(1,4);
+            int membershipChoice = InputUtils.getValidInput(1,4);
             handleUserChoice(membershipChoice);
         }
 
@@ -76,7 +74,7 @@ public class CarParkMenu {
 
     private void handleMemberEntry() throws InterruptedException {
         System.out.println("Please enter your barcode: ");
-        barcode = getValidBarcode(10);
+        barcode = InputUtils.getValidBarcode(10);
         car = new Car(barcode);
         car.setBarcode(barcode);
 
@@ -90,7 +88,7 @@ public class CarParkMenu {
 
     private void handleNonMemberEntry() throws InterruptedException {
         System.out.println("Please enter your reg number: ");
-        reg = getValidString(7);
+        reg = InputUtils.getValidString(7);
         car = new Car(reg);
         car.setPlate(reg);
         boolean carRegistered = parkManager.addNonmemberRegistry(reg,car);
@@ -105,14 +103,17 @@ public class CarParkMenu {
         boolean sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
         if(sensorDetect){
             parkManager.raiseEntryBarrier();
+            Thread.sleep(1000);
             System.out.println("Car Entering ... ");
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             System.out.println("Car Entered");
+            Thread.sleep(1000);
             parkManager.decrementSpotCount(spotType);
             parkManager.sensorUndetectCar(carPark.getEntrySensor());
             sensorDetect = parkManager.isCarDetected(carPark.getEntrySensor());
             if(!sensorDetect){
                 parkManager.lowerEntryBarrier();
+                Thread.sleep(1000);
                 handleChooseCarSpace();
             }
         }
@@ -120,7 +121,7 @@ public class CarParkMenu {
 
     private void handleChooseCarSpace() throws InterruptedException {
         parkView.showParkingStrategies();
-        int choice = getValidInput(1,3);
+        int choice = InputUtils.getValidInput(1,3);
         switch(choice) {
             case 1:
                 spot = parkManager.parkCar("nearest", spotType);
@@ -159,64 +160,18 @@ public class CarParkMenu {
         System.out.println("Leaving car park...");
         parkManager.sensorDetectCar(carPark.getExitSensor(), car);
         boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
-
+        Thread.sleep(1000);
         if(sensorDetect) {
             parkManager.raiseExitBarrier(spot);
             System.out.println("Car Exiting ... ");
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             parkManager.lowerExitBarrier(spotType);
             parkManager.sensorUndetectCar(carPark.getExitSensor());
         }
+
+        Thread.sleep(1000);
         System.out.println("Car has left the car park");
         }
-
-
-
-
-
-    private int getValidInput(int min, int max){
-        while(true){
-            if (!stdin.hasNextInt()) {
-                System.err.println("Invalid input! Please enter a number (" + min + "-" + max + ").");
-                stdin.nextLine();
-                continue;
-            }
-            int choice = stdin.nextInt();
-            stdin.nextLine();
-            if (choice >= min && choice <= max) {
-                return choice;
-            } else {
-                System.err.println("Invalid choice! Please enter a number between " + min + " and " + max + ".");
-            }
-        }
-    }
-
-    private String getValidString(int length){
-        while (true) {
-            String input = stdin.nextLine();
-            if (input.length() != length ) {
-                System.err.println("Invalid input! Please enter a valid input.");
-                continue;
-            }
-            return input;
-        }
-    }
-
-    private String getValidBarcode(int length){
-        while (true) {
-            String input = stdin.nextLine();
-            if (input.length() != length || !ValidationUtils.isNumber(input) ) {
-                System.err.println("Invalid input! Please enter a valid input.");
-                continue;
-            }
-            return input;
-        }
-    }
-
-
-// next remove when you go back from cancelling the registration
-//    car enters the car park
-//    picks the spot
 
 
 }
