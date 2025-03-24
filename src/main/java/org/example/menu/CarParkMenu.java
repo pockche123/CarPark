@@ -124,7 +124,7 @@ public class CarParkMenu {
 
     private void handleChooseCarSpace() throws InterruptedException {
         parkView.showParkingStrategies();
-        int choice = getValidInput(1,2);
+        int choice = getValidInput(1,3);
         switch(choice) {
             case 1:
                 spot = parkManager.parkCar(nearestStrategy, spotType);
@@ -135,6 +135,9 @@ public class CarParkMenu {
                 spot = parkManager.parkCar(firstStrategy,spotType);
                 System.out.println(spot);
                 handleUnParkCarSpace();
+                break;
+            case 3:
+                handleLeaveCarPark();
                 break;
             default:
                 System.err.println("Invalid choice. Please try again.");

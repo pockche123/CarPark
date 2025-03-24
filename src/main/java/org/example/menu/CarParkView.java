@@ -10,7 +10,7 @@ public class CarParkView {
         System.out.println(" 1. Standard ");
         System.out.println(" 2. Accessible  ");
         System.out.println(" 3. Electric Vehicles (EV) ");
-        System.out.println(" 4. Exit ");
+        System.out.println(" 4. Cancel ");
     }
 
     public void showChoiceResults( int choice, int spaces){
@@ -28,13 +28,14 @@ public class CarParkView {
         System.out.println("1. Member");
         System.out.println("2. Non-member");
         System.out.println("3. Go back");
-        System.out.println("4. Exit");
+        System.out.println("4. Cancel");
     }
 
     public void showParkingStrategies(){
         System.out.println("Please pick how you want to park your car");
         System.out.println("1. Closest to the gate.");
         System.out.println("2. First find.");
+        System.out.println("3. Exit the Car Park");
 
     }
 
