@@ -47,7 +47,6 @@ public class CarParkMenu {
     }
 
     public void handleSpaceChoice(int choice) throws InterruptedException {
-//        String[] spotTypes = {"normal", "handicapped", "electric" };
         ParkingSpotType[] spotTypes = ParkingSpotType.values();
         spotType = spotTypes[choice-1];
         int spaces = carPark.getSpotCount(spotType);
@@ -109,7 +108,7 @@ public class CarParkMenu {
         if(sensorDetect){
             parkManager.raiseEntryBarrier();
             System.out.println("Car Entering ... ");
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             System.out.println("Car Entered");
             carPark.decrementSpotCount(spotType);
             parkManager.sensorUndetectCar(carPark.getEntrySensor());
@@ -161,17 +160,12 @@ public class CarParkMenu {
         parkManager.sensorDetectCar(carPark.getExitSensor(), car);
         boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
         if(sensorDetect) {
-            System.out.println("here1 ---");
             carPark.getExitBarrier().setTicket(spot);
-            System.out.println("here2 --- ");
             carPark.getExitBarrier().raise();
             System.out.println("Car Exiting ... ");
             Thread.sleep(2000);
 
             carPark.getExitBarrier().lower();
-
-
-
             carPark.incrementSpotCount(spotType);
             if(reg != null){
                 parkManager.removeNonmemberRegistry(reg);
@@ -183,13 +177,7 @@ public class CarParkMenu {
             carPark.getExitBarrier().setTicket(null);
 
         }
-
-
         System.out.println("Car has left the car park");
-
-
-
-
         }
 
 

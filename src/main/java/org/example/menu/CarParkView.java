@@ -5,6 +5,7 @@ public class CarParkView {
 
     public void showStartMenu(){
         System.out.println("--------------- Welcome to PJ's Parking -------------------");
+        System.out.println("PAYMENT Option coming soon...");
         System.out.println(" Please pick the option for the parking type: ");
         System.out.println(" 1. Standard ");
         System.out.println(" 2. Accessible  ");
