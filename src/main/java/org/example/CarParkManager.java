@@ -22,20 +22,19 @@ public class CarParkManager {
     private FullSign fullSign = new FullSign();
     private BarcodeReader barcodeReader = new BarcodeReader();
     private PlateNumberReader plateNumberReader = new PlateNumberReader();
+    private CarPark carPark;
 
-//    private Barrier barrier;
-//    private Sensor sensor;
-//    private IDReader idreader;
-//    private FullSign fullSign;
-//    private CarRegistry carRegistry;
 
-    public CarParkManager(){
-
-    }
 
     public CarPark initCarPark(int capacity){
-        CarPark park = director.buildAverageCarPark(capacity);
-        return park;
+        carPark = director.buildAverageCarPark(capacity);
+        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
+        firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
+        return carPark;
+    }
+
+    public int getSpotCount(ParkingSpotType spotType){
+        return carPark.getSpotCount(spotType);
     }
 
 
@@ -67,7 +66,7 @@ public class CarParkManager {
             System.out.println("the barcode is null");
             return false;
         }
-        String plateNumber = barcodeReader.read(car);  // Read the plate number
+        String plateNumber = barcodeReader.read(car);
         if (plateNumber == null) {
             return false;
         }
@@ -83,6 +82,10 @@ public class CarParkManager {
         sensor.setCar(null);
     }
 
+    public void decrementSpotCount(ParkingSpotType spotType){
+        carPark.decrementSpotCount(spotType);
+    }
+
     public boolean isCarDetected(Sensor sensor){
         return sensor.isCarPresent();
     }
@@ -95,8 +98,17 @@ public class CarParkManager {
         entryBarrier.lower();
     }
 
-    public ParkingSpot parkCar(ParkingSpotStrategy spotStrategy, ParkingSpotType type){
-        return spotStrategy.parkCar(type);
+    public ParkingSpot parkCar(String strategy, ParkingSpotType type){
+        if(strategy.equalsIgnoreCase("nearest")){
+            return nearestStrategy.parkCar(type);
+        } else{
+            return firstStrategy.parkCar(type);
+        }
+    }
+
+    public void leaveSpot(ParkingSpot spot){
+        nearestStrategy.leaveSpot(spot);
+        firstStrategy.leaveSpot(spot);
     }
 
 
@@ -109,6 +121,19 @@ public class CarParkManager {
         }
         fullSign.switchOn();
 
+    }
+
+    public void raiseExitBarrier(ParkingSpot spot){
+        carPark.getExitBarrier().setTicket(spot);
+        carPark.getExitBarrier().raise();
+
+
+    }
+
+    public void lowerExitBarrier(ParkingSpotType spotType){
+        carPark.getExitBarrier().lower();
+        carPark.incrementSpotCount(spotType);
+        carPark.getExitBarrier().setTicket(null);
     }
 
 
