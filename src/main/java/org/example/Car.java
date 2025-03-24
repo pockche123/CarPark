@@ -11,7 +11,7 @@ public class Car {
     private LocalDateTime enterTime;
     private LocalDateTime leaveTime;
     private Ticket ticket;
-    private boolean isMember;
+
 
     public Car(){
 
@@ -21,7 +21,7 @@ public class Car {
         this.plate = plate;
 
     }
-    public Car(int barcode){
+    public Car(long barcode){
         this.barcode = String.valueOf(barcode);
     }
     public String getPlate(){return this.plate;}
@@ -64,12 +64,6 @@ public class Car {
         this.plate = plate;
     }
 
-    public boolean isMember() {
-        return isMember;
-    }
 
-    public void setMember(boolean member) {
-        isMember = member;
-    }
 
 }

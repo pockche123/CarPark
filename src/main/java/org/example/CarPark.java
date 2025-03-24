@@ -98,13 +98,7 @@ public class CarPark {
         this.exitSensor = exitSensor;
     }
 
-    //    public Map<String, ParkingSpotType> getParkingSpotTypeSpacesMap() {
-//        return parkingSpotTypeSpacesMap;
-//    }
-//
-//    public void setParkingSpotTypeSpacesMap(Map<String, ParkingSpotType> parkingSpotTypeSpacesMap) {
-//        this.parkingSpotTypeSpacesMap = parkingSpotTypeSpacesMap;
-//    }
+
 
     public void update() {
         //Place your carpark update logic here.

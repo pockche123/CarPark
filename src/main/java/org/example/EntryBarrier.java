@@ -4,8 +4,6 @@ package org.example;
 public class EntryBarrier implements Barrier {
 
     private boolean up;
-
-
     public EntryBarrier(){
 
     }
@@ -18,11 +16,8 @@ public class EntryBarrier implements Barrier {
 
     @Override
     public void raise() {
-
             System.out.println("Entry barrier raised");
             this.up = true;
-
-
     }
 
     @Override

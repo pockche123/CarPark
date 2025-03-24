@@ -13,8 +13,9 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
 
     public NearestParkingSpotStrategy(List<ParkingSpot> spots) {
         nearestSpots = new PriorityQueue<>(Comparator
-                .comparing((ParkingSpot spot) -> spot.getStatus() == ParkingSpotStatus.FREE? 0:1)
-                .thenComparingDouble(ParkingSpot::getDistanceFromEntrance));
+                .comparingDouble(ParkingSpot::getDistanceFromEntrance)
+                .thenComparing((ParkingSpot spot) -> spot.getStatus() == ParkingSpotStatus.FREE? 0:1));
+
 
         nearestSpots.addAll(spots);
 
@@ -28,21 +29,25 @@ public class NearestParkingSpotStrategy implements  ParkingSpotStrategy{
             }
         }
         return null;
+
     }
 
     @Override
     public ParkingSpot parkCar(ParkingSpotType type ){
-        Iterator<ParkingSpot> iterator = nearestSpots.iterator();
-        while(iterator.hasNext()){
-            ParkingSpot spot = iterator.next();
-            if(spot.getStatus() == ParkingSpotStatus.FREE && spot.getType()  == type){
-                iterator.remove();
+
+        PriorityQueue<ParkingSpot> clonedQueue = new PriorityQueue<>(nearestSpots);
+
+        while (!clonedQueue.isEmpty()) {
+            ParkingSpot spot = clonedQueue.poll();
+            if (spot.getStatus() == ParkingSpotStatus.FREE && spot.getType() == type) {
+                nearestSpots.remove(spot);
                 spot.setStatus(ParkingSpotStatus.OCCUPIED);
                 nearestSpots.add(spot);
                 return spot;
             }
         }
         return null;
+
     }
 
     @Override

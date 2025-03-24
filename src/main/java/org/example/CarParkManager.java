@@ -19,45 +19,60 @@ public class CarParkManager {
 
     private NearestParkingSpotStrategy nearestStrategy;
     private FirstAvailableParkingSpotStrategy firstStrategy;
+    private FullSign fullSign = new FullSign();
+    private BarcodeReader barcodeReader = new BarcodeReader();
+    private PlateNumberReader plateNumberReader = new PlateNumberReader();
+    private CarPark carPark;
 
 
-
-//    private Barrier barrier;
-//    private Sensor sensor;
-//    private IDReader idreader;
-//    private FullSign fullSign;
-//    private CarRegistry carRegistry;
-
-    public CarParkManager(){
-
-    }
 
     public CarPark initCarPark(int capacity){
-        CarPark park = director.buildAverageCarPark(capacity);
-
-        return park;
-
+        carPark = director.buildAverageCarPark(capacity);
+        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
+        firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
+        return carPark;
     }
 
-    public int checkForSpaces(CarPark park, ParkingSpotType type){
-        return park.getSpotCount(type);
+    public int getSpotCount(ParkingSpotType spotType){
+        return carPark.getSpotCount(spotType);
     }
+
 
     public boolean addNonmemberRegistry(String reg, Car car){
-        return registry.addCar(reg, car);
+        if(car == null){
+            System.out.println("Car is null");
+            return false;
+        }
+        if(car.getPlate() == null){
+            System.out.println("the car plate is null");
+            return false;
+        }
+        String regFetched = plateNumberReader.read(car);
+        if(regFetched == null){
+            System.out.println("fetched plate is null");
+            return false;
+        }
+        return plateNumberReader.read(car).equalsIgnoreCase(reg) && registry.addCar(reg, car);
     }
 
-    public boolean removeNonmemberRegistry(String reg){
-        return registry.removeCar(reg);
+
+    public boolean addMemberRegistry(long barcode, Car car){
+        if (car == null) {
+            System.out.println("Car is null.");
+            return false;
+        }
+
+        if(car.getBarcode() == null){
+            System.out.println("the barcode is null");
+            return false;
+        }
+        String plateNumber = barcodeReader.read(car);
+        if (plateNumber == null) {
+            return false;
+        }
+        return plateNumber.equalsIgnoreCase(String.valueOf(barcode)) && memberCarRegistry.addCar(String.valueOf(barcode), car);
     }
 
-    public boolean addMemberRegistry(int barcode, Car car){
-        return memberCarRegistry.addCar(String.valueOf(barcode), car);
-    }
-
-    public boolean removeMemberRegistry(String barcode){
-        return memberCarRegistry.removeCar(barcode);
-    }
 
     public void sensorDetectCar(Sensor sensor, Car car){
         sensor.setCar(car);
@@ -65,6 +80,10 @@ public class CarParkManager {
 
     public void sensorUndetectCar(Sensor sensor){
         sensor.setCar(null);
+    }
+
+    public void decrementSpotCount(ParkingSpotType spotType){
+        carPark.decrementSpotCount(spotType);
     }
 
     public boolean isCarDetected(Sensor sensor){
@@ -79,71 +98,42 @@ public class CarParkManager {
         entryBarrier.lower();
     }
 
-    public ParkingSpot parkCar(ParkingSpotStrategy spotStrategy, ParkingSpotType type){
-        return spotStrategy.parkCar(type);
+    public ParkingSpot parkCar(String strategy, ParkingSpotType type){
+        if(strategy.equalsIgnoreCase("nearest")){
+            return nearestStrategy.parkCar(type);
+        } else{
+            return firstStrategy.parkCar(type);
+        }
     }
 
-    public void unparkCar(ParkingSpot spot){}
+    public void leaveSpot(ParkingSpot spot){
+        nearestStrategy.leaveSpot(spot);
+        firstStrategy.leaveSpot(spot);
+    }
 
 
-
-
-
-
-//    public void enterCarPark()
-//    {
-////        car enter the car park
-//
-//        String plate = stdin.nextLine();
-//        Car car = new Car("UJZ8884");
-////        sensor detects the car
-//        Sensor sensor = new Sensor(car);
-//
-////        car selects the parkingspot - if no parkingspot exits else
-//        System.out.println("Please select a parking spot option (1-3)");
-//        System.out.println("1. Standard");
-//        System.out.println("2. Electric Vehicle");
-//        System.out.println("3. Handicap");
-//        String option = stdin.nextLine();
-//
-//        while(!ValidationUtils.checkValidOption(option,1,3)){
-//            System.err.println("Please pick a valid option");
-//            option = stdin.nextLine();
-//        }
-//
-//
-//
-//
-////        entry barrier opens
-////        car is registered into the registry
-////        sensor doesn't detect a car
-////        entry barrier closes
-//
-//    }
-
-
-
-//    public boolean checkValidOption(String option){
-//        boolean numeric = false;
-//        try{
-//            int num = Integer.parseInt(option);
-//        } catch(NumberFormatException e){
-//
-//        }
-//
-//
-//    }
-
-    public void parkInASpot(){
+    public void isCarParkFull(CarPark carPark){
+        for(ParkingSpotType type: ParkingSpotType.values()){
+            if(carPark.getSpotCount(type) > 0){
+                fullSign.switchOff();
+                return;
+            };
+        }
+        fullSign.switchOn();
 
     }
 
-    public void leaveTheSpot(){
+    public void raiseExitBarrier(ParkingSpot spot){
+        carPark.getExitBarrier().setTicket(spot);
+        carPark.getExitBarrier().raise();
+
 
     }
 
-    public void  exitCarPark(){
-//        A ticket is generated for the car
+    public void lowerExitBarrier(ParkingSpotType spotType){
+        carPark.getExitBarrier().lower();
+        carPark.incrementSpotCount(spotType);
+        carPark.getExitBarrier().setTicket(null);
     }
 
 
