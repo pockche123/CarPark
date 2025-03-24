@@ -16,11 +16,8 @@ public class EntryBarrier implements Barrier {
 
     @Override
     public void raise() {
-
             System.out.println("Entry barrier raised");
             this.up = true;
-
-
     }
 
     @Override

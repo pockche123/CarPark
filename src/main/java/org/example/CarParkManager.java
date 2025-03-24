@@ -20,8 +20,8 @@ public class CarParkManager {
     private NearestParkingSpotStrategy nearestStrategy;
     private FirstAvailableParkingSpotStrategy firstStrategy;
     private FullSign fullSign = new FullSign();
-
-
+    private BarcodeReader barcodeReader = new BarcodeReader();
+    private PlateNumberReader plateNumberReader = new PlateNumberReader();
 
 //    private Barrier barrier;
 //    private Sensor sensor;
@@ -38,25 +38,42 @@ public class CarParkManager {
         return park;
     }
 
-    public int checkForSpaces(CarPark park, ParkingSpotType type){
-        return park.getSpotCount(type);
-    }
 
     public boolean addNonmemberRegistry(String reg, Car car){
-        return registry.addCar(reg, car);
+        if(car == null){
+            System.out.println("Car is null");
+            return false;
+        }
+        if(car.getPlate() == null){
+            System.out.println("the car plate is null");
+            return false;
+        }
+        String regFetched = plateNumberReader.read(car);
+        if(regFetched == null){
+            System.out.println("fetched plate is null");
+            return false;
+        }
+        return plateNumberReader.read(car).equalsIgnoreCase(reg) && registry.addCar(reg, car);
     }
 
-    public boolean removeNonmemberRegistry(String reg){
-        return registry.removeCar(reg);
+
+    public boolean addMemberRegistry(long barcode, Car car){
+        if (car == null) {
+            System.out.println("Car is null.");
+            return false;
+        }
+
+        if(car.getBarcode() == null){
+            System.out.println("the barcode is null");
+            return false;
+        }
+        String plateNumber = barcodeReader.read(car);  // Read the plate number
+        if (plateNumber == null) {
+            return false;
+        }
+        return plateNumber.equalsIgnoreCase(String.valueOf(barcode)) && memberCarRegistry.addCar(String.valueOf(barcode), car);
     }
 
-    public boolean addMemberRegistry(int barcode, Car car){
-        return memberCarRegistry.addCar(String.valueOf(barcode), car);
-    }
-
-    public boolean removeMemberRegistry(String barcode){
-        return memberCarRegistry.removeCar(barcode);
-    }
 
     public void sensorDetectCar(Sensor sensor, Car car){
         sensor.setCar(car);
@@ -82,17 +99,16 @@ public class CarParkManager {
         return spotStrategy.parkCar(type);
     }
 
-    public void unparkCar(ParkingSpot spot){}
 
-    public boolean isCarParkFull(CarPark carPark){
+    public void isCarParkFull(CarPark carPark){
         for(ParkingSpotType type: ParkingSpotType.values()){
             if(carPark.getSpotCount(type) > 0){
                 fullSign.switchOff();
-                return false;
+                return;
             };
         }
         fullSign.switchOn();
-        return true;
+
     }
 
 

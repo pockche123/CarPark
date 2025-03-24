@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class CarParkMenu {
 
     private final Scanner stdin = new Scanner(System.in);
-    private CarParkDirector director = new CarParkDirector();
     private CarPark carPark;
     private String reg;
     private String barcode;
@@ -30,7 +29,7 @@ public class CarParkMenu {
 
 
     public void start() throws InterruptedException {
-        carPark = director.buildAverageCarPark(100);
+        carPark = parkManager.initCarPark(100);
         nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
         firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
         parkManager.isCarParkFull(carPark);
@@ -83,7 +82,9 @@ public class CarParkMenu {
         System.out.println("Please enter your barcode: ");
         barcode = getValidBarcode(10);
         car = new Car(barcode);
-        boolean carRegistered = parkManager.addMemberRegistry(Integer.parseInt(barcode),car);
+        car.setBarcode(barcode);
+
+        boolean carRegistered = parkManager.addMemberRegistry(Long.parseLong(barcode),car);
         if(carRegistered){
             handleSensorDetectCar(car);
         }
@@ -95,6 +96,7 @@ public class CarParkMenu {
         System.out.println("Please enter your reg number: ");
         reg = getValidString(7);
         car = new Car(reg);
+        car.setPlate(reg);
         boolean carRegistered = parkManager.addNonmemberRegistry(reg,car);
         if(carRegistered){
             handleSensorDetectCar(car);
@@ -160,18 +162,26 @@ public class CarParkMenu {
         parkManager.sensorDetectCar(carPark.getExitSensor(), car);
         boolean sensorDetect = parkManager.isCarDetected(carPark.getExitSensor());
         if(sensorDetect) {
+
             carPark.getExitBarrier().setTicket(spot);
+//            add payment here
             carPark.getExitBarrier().raise();
             System.out.println("Car Exiting ... ");
             Thread.sleep(2000);
 
             carPark.getExitBarrier().lower();
             carPark.incrementSpotCount(spotType);
-            if(reg != null){
-                parkManager.removeNonmemberRegistry(reg);
-            } else{
-                parkManager.removeMemberRegistry(barcode);
-            }
+//            if(reg != null){
+//                boolean remove = parkManager.removeNonmemberRegistry(reg);
+//                if(remove){
+//                    System.out.println("Car details removed.");
+//                }
+//            } else{
+//               boolean remove =  parkManager.removeMemberRegistry(barcode);
+//                if(remove){
+//                    System.out.println("Car details removed.");
+//                }
+//            }
 
             parkManager.sensorUndetectCar(carPark.getExitSensor());
             carPark.getExitBarrier().setTicket(null);

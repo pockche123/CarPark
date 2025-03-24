@@ -11,7 +11,7 @@ public class Car {
     private LocalDateTime enterTime;
     private LocalDateTime leaveTime;
     private Ticket ticket;
-    private boolean isMember;
+
 
     public Car(){
 
@@ -64,12 +64,6 @@ public class Car {
         this.plate = plate;
     }
 
-    public boolean isMember() {
-        return isMember;
-    }
 
-    public void setMember(boolean member) {
-        isMember = member;
-    }
 
 }
