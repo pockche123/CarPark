@@ -68,7 +68,4 @@ public class InputUtilsTests {
         String actual = getValidBarcode(5);
         assertEquals("12345",actual);
     }
-
-
-
 }

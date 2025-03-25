@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 public class CarParkDirectorTests {
@@ -30,6 +32,14 @@ public class CarParkDirectorTests {
 
         assertEquals(100, park.getCapacity());
         assertEquals(50, park2.getCapacity());
+    }
+
+    @Test
+    public void test_buildPreMadeCarPark_returnsCarPark() throws IOException {
+        CarPark park = carParkDirector.buildPreMadeCarPark();
+
+        assertEquals(100, park.getCapacity());
+
     }
 
 

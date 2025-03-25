@@ -65,6 +65,7 @@ public class CarParkDirector{
         ParkingSpotLoader spotLoader = new ParkingSpotLoader();
         List<ParkingSpot> parkingSpots = spotLoader.loadParkingSpotsFromJson();
         park.setParkingSpots(parkingSpots);
+        park.setCapacity(parkingSpots.size());
         park.setSpotCount();
         return park;
     }
