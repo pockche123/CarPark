@@ -11,9 +11,4 @@ public class Ticket {
     }
 
 //    ticket price generator pending in next sprint
-
-
-
-
-
 }

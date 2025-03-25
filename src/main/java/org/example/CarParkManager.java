@@ -2,14 +2,13 @@ package org.example;
 
 import org.example.builder.CarParkDirector;
 
-import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
+import org.example.parkingstrategy.OrderedParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.example.parkingstrategy.ParkingSpotStrategy;
 import org.example.utils.ValidationUtils;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Scanner;
+
 
 public class CarParkManager {
 
@@ -17,9 +16,8 @@ public class CarParkManager {
     private CarRegistry registry = new CarRegistry();
     private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
     private EntryBarrier entryBarrier = new EntryBarrier();
-
     private NearestParkingSpotStrategy nearestStrategy;
-    private FirstAvailableParkingSpotStrategy firstStrategy;
+    private OrderedParkingSpotStrategy firstStrategy;
     private FullSign fullSign = new FullSign();
     private BarcodeReader barcodeReader = new BarcodeReader();
     private PlateNumberReader plateNumberReader = new PlateNumberReader();
@@ -30,7 +28,7 @@ public class CarParkManager {
     public CarPark initCarPark() throws IOException {
         carPark = director.buildPreMadeCarPark();
         nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
-        firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
+        firstStrategy = new OrderedParkingSpotStrategy(carPark.getParkingSpots());
         return carPark;
     }
 

@@ -6,12 +6,10 @@ import org.example.ParkingSpotType;
 
 import java.util.*;
 
-public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
+public class OrderedParkingSpotStrategy implements ParkingSpotStrategy{
     private final TreeSet<ParkingSpot> availableSpots;
-
-
-
-    public FirstAvailableParkingSpotStrategy(List<ParkingSpot> spots){
+    
+    public OrderedParkingSpotStrategy(List<ParkingSpot> spots){
         availableSpots = new TreeSet<>(Comparator
                 .comparing((ParkingSpot spot) -> spot.getStatus() == ParkingSpotStatus.FREE ? 0:1)
                 .thenComparing(ParkingSpot::getSpotId)
@@ -50,8 +48,4 @@ public class FirstAvailableParkingSpotStrategy implements ParkingSpotStrategy{
         spot.setStatus(ParkingSpotStatus.FREE);
         availableSpots.add(spot);
     }
-
-
-
-
 }

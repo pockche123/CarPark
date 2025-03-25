@@ -16,23 +16,17 @@ public class ParkingSpot {
         this.status = ParkingSpotStatus.FREE;
     }
 
-//    public ParkingSpot(int id, ParkingSpotType type, double distanceFromEntrance, ParkingSpotStatus status){
-//        this.spotId = id;
-//        this.type = type;
-//        this.distanceFromEntrance = distanceFromEntrance;
-//        this.status = status;
-//    }
-@JsonCreator
-public ParkingSpot(
-        @JsonProperty("id") int spotId,
-        @JsonProperty("type") ParkingSpotType type,
-        @JsonProperty("distanceFromEntrance") double distanceFromEntrance,
-        @JsonProperty("status") ParkingSpotStatus status
-) {   this.spotId = spotId;
-    this.type = type;
-    this.distanceFromEntrance = distanceFromEntrance;
-    this.status = status;
-};
+    @JsonCreator
+    public ParkingSpot(
+            @JsonProperty("id") int spotId,
+            @JsonProperty("type") ParkingSpotType type,
+            @JsonProperty("distanceFromEntrance") double distanceFromEntrance,
+            @JsonProperty("status") ParkingSpotStatus status
+    ) {   this.spotId = spotId;
+        this.type = type;
+        this.distanceFromEntrance = distanceFromEntrance;
+        this.status = status;
+    };
 
     public ParkingSpot(int id, ParkingSpotType type, double distance){
         this.spotId = id;
