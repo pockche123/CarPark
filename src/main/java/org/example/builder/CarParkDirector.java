@@ -7,9 +7,7 @@ import org.example.database.ParkingSpotLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CarParkDirector{
 
@@ -59,9 +57,6 @@ public class CarParkDirector{
 
         carPark.setParkingSpots(spots);
         carPark.setSpotCount();
-//
-//        carPark.getParkingSpots().forEach(System.out::println);
-
         return carPark;
     }
 
