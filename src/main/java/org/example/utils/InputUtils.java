@@ -3,7 +3,13 @@ package org.example.utils;
 import java.util.Scanner;
 
 public class InputUtils {
-    private static final Scanner stdin = new Scanner(System.in);
+    private static Scanner stdin = new Scanner(System.in);
+
+    public static void resetScanner() {
+        stdin.close();
+        stdin = new Scanner(System.in);
+    }
+
     public static int getValidInput(int min, int max){
         while(true){
             if (!stdin.hasNextInt()) {
