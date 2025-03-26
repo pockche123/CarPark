@@ -2,9 +2,12 @@ package org.example;
 
 
 
+import jdk.swing.interop.SwingInterOpUtils;
+
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 
-public class Car {
+public class Car implements Vehicle{
 
     private String plate;
     private String barcode;
@@ -50,6 +53,8 @@ public class Car {
 
     public void setLeaveTime(LocalDateTime leaveTime) {
         this.leaveTime = leaveTime;
+        System.out.println("The vehicle has left at " + leaveTime);
+        System.out.println("Going forward, tickets will be issued based on entry to exit time automatically.");
     }
 
     public LocalDateTime getEnterTime() {
@@ -57,7 +62,10 @@ public class Car {
     }
 
     public void setEnterTime(LocalDateTime enterTime) {
+
         this.enterTime = enterTime;
+        System.out.println("Vehicle has entered at " + enterTime);
+        System.out.println("If the vehicle is parked for under 5 minutes, no payment is necessary.");
     }
 
     public void setPlate(String plate) {

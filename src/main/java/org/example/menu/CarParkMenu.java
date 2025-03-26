@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class CarParkMenu {
 
-    private CarPark carPark;
+    private CarPark<Car> carPark;
     private ParkingSpotType spotType;
     private final CarParkManager parkManager;
     private final CarParkView parkView;
@@ -100,6 +100,7 @@ public class CarParkMenu {
         System.out.println("Car Entering ... ");
         Thread.sleep(1000);
         System.out.println("Car Entered");
+        parkManager.setEntryTime(car);
         Thread.sleep(1000);
         parkManager.decrementSpotCount(spotType);
 
@@ -172,6 +173,7 @@ public class CarParkMenu {
         Thread.sleep(1000);
         if(sensorDetect) {
 //            payment processing in the future ...
+            parkManager.setExitTime(car);
             parkManager.raiseExitBarrier(spot);
             System.out.println("Car Exiting ... ");
             Thread.sleep(1000);

@@ -5,7 +5,7 @@ package org.example;
 
 import java.util.*;
 
-public class CarPark {
+public class CarPark<T extends Vehicle> {
     private int capacity;
     private List<ParkingSpot> parkingSpots;
     private Sensor entrySensor = new Sensor();

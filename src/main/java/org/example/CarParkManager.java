@@ -4,10 +4,10 @@ import org.example.builder.CarParkDirector;
 
 import org.example.parkingstrategy.OrderedParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
-import org.example.parkingstrategy.ParkingSpotStrategy;
-import org.example.utils.ValidationUtils;
+
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 public class CarParkManager {
@@ -15,13 +15,13 @@ public class CarParkManager {
     private CarParkDirector director = new CarParkDirector();
     private CarRegistry registry = new CarRegistry();
     private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
-    private EntryBarrier entryBarrier = new EntryBarrier();
+    private final EntryBarrier entryBarrier = new EntryBarrier();
     private NearestParkingSpotStrategy nearestStrategy;
     private OrderedParkingSpotStrategy firstStrategy;
-    private FullSign fullSign = new FullSign();
+    private final FullSign fullSign = new FullSign();
     private BarcodeReader barcodeReader = new BarcodeReader();
     private PlateNumberReader plateNumberReader = new PlateNumberReader();
-    private CarPark carPark;
+    private CarPark<Car> carPark;
 
     public CarParkManager(CarParkDirector director, PlateNumberReader plateReader,
                           MemberCarRegistry memberCarRegistry, BarcodeReader barcodeReader,
@@ -35,7 +35,7 @@ public class CarParkManager {
 
 
 
-    public CarPark initCarPark() throws IOException {
+    public CarPark<Car> initCarPark() throws IOException {
         carPark = director.buildPreMadeCarPark();
         nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
         firstStrategy = new OrderedParkingSpotStrategy(carPark.getParkingSpots());
@@ -121,7 +121,7 @@ public class CarParkManager {
     }
 
 
-    public void isCarParkFull(CarPark carPark){
+    public <T extends Vehicle> void isCarParkFull(CarPark<T> carPark){
         for(ParkingSpotType type: ParkingSpotType.values()){
             if(carPark.getSpotCount(type) > 0){
                 fullSign.switchOff();
@@ -139,15 +139,17 @@ public class CarParkManager {
 
     }
 
+    public void setEntryTime(Car car){
+        car.setEnterTime(LocalDateTime.now());
+    }
+
+    public void setExitTime(Car car){
+        car.setLeaveTime(LocalDateTime.now());
+    }
+
     public void lowerExitBarrier(ParkingSpotType spotType){
         carPark.getExitBarrier().lower();
         carPark.incrementSpotCount(spotType);
         carPark.getExitBarrier().setTicket(null);
     }
-
-
-
-
-
-
 }

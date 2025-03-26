@@ -1,8 +1,6 @@
 package org.example.builder;
 
-import org.example.CarPark;
-import org.example.ParkingSpot;
-import org.example.ParkingSpotType;
+import org.example.*;
 import org.example.database.ParkingSpotLoader;
 
 import java.io.IOException;
@@ -11,8 +9,8 @@ import java.util.List;
 
 public class CarParkDirector{
 
-    public CarPark buildAverageCarPark(int capacity){
-        CarPark carPark = new CarPark(capacity);
+    public CarPark<Vehicle> buildAverageCarPark(int capacity){
+        CarPark<Vehicle> carPark = new CarPark<>(capacity);
 
 
         int electricSpaces = (int) (0.05 * capacity);
@@ -60,8 +58,8 @@ public class CarParkDirector{
         return carPark;
     }
 
-    public CarPark buildPreMadeCarPark() throws IOException {
-        CarPark park = new CarPark();
+    public CarPark<Car> buildPreMadeCarPark() throws IOException {
+        CarPark<Car> park = new CarPark<>();
         ParkingSpotLoader spotLoader = new ParkingSpotLoader();
         List<ParkingSpot> parkingSpots = spotLoader.loadParkingSpotsFromJson();
         park.setParkingSpots(parkingSpots);
