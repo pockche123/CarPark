@@ -116,7 +116,6 @@ public class CarParkMenu {
                 handleChooseCarSpace();
             }else {
                 System.err.println("Something wrong with sensor. Please contact a worker on site...");
-                return;
             }
     }
 

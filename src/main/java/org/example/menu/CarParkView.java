@@ -34,7 +34,7 @@ public class CarParkView {
     public void showParkingStrategies(){
         System.out.println("Please pick how you want to park your car");
         System.out.println("1. Closest to the gate.");
-        System.out.println("2. First find.");
+        System.out.println("2. By the next available parking spot number.");
         System.out.println("3. Exit the Car Park");
 
     }
