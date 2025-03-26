@@ -23,6 +23,16 @@ public class CarParkManager {
     private PlateNumberReader plateNumberReader = new PlateNumberReader();
     private CarPark carPark;
 
+    public CarParkManager(CarParkDirector director, PlateNumberReader plateReader,
+                          MemberCarRegistry memberCarRegistry, BarcodeReader barcodeReader,
+                          CarRegistry carRegistry) {
+        this.director = director;
+        this.plateNumberReader = plateReader;
+        this.memberCarRegistry = memberCarRegistry;
+        this.barcodeReader = barcodeReader;
+        this.registry = carRegistry;
+    }
+
 
 
     public CarPark initCarPark() throws IOException {

@@ -10,11 +10,15 @@ public class CarParkMenu {
 
     private CarPark carPark;
     private ParkingSpotType spotType;
-    private final CarParkManager parkManager = new CarParkManager();
-    private final CarParkView parkView = new CarParkView();
+    private final CarParkManager parkManager;
+    private final CarParkView parkView;
     private ParkingSpot spot;
     private Car car;
 
+    public CarParkMenu(CarParkManager manager, CarParkView parkView){
+        this.parkManager = manager;
+        this.parkView = parkView;
+    }
 
     public void start() throws InterruptedException, IOException {
         carPark = parkManager.initCarPark();
