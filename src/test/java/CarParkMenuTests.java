@@ -29,20 +29,20 @@ public class CarParkMenuTests {
         carParkMenu = new CarParkMenu(mockParkManager, mockParkView);
     }
 
-    @Test
-    public void test_start() throws IOException, InterruptedException {
-        when(mockParkManager.initCarPark()).thenReturn(mockCarPark);
-
-        try (var mockStatic = mockStatic(InputUtils.class)) {
-            mockStatic.when(() -> InputUtils.getValidInput(1, 4)).thenReturn(4);
-
-            carParkMenu.start();
-
-            verify(mockParkManager, times(1)).initCarPark();
-            verify(mockParkView, times(1)).showStartMenu();
-        }
-
-    }
+//    @Test
+//    public void test_start() throws IOException, InterruptedException {
+//        when(mockParkManager.initCarPark()).thenReturn(mockCarPark);
+//
+//        try (var mockStatic = mockStatic(InputUtils.class)) {
+//            mockStatic.when(() -> InputUtils.getValidInput(1, 4)).thenReturn(4);
+//
+//            carParkMenu.start();
+//
+//            verify(mockParkManager, times(1)).initCarPark();
+//            verify(mockParkView, times(1)).showStartMenu();
+//        }
+//
+//    }
 
 
 

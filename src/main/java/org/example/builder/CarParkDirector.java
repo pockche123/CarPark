@@ -2,10 +2,14 @@ package org.example.builder;
 
 import org.example.*;
 import org.example.database.ParkingSpotLoader;
+import org.example.parkingstrategy.NearestParkingSpotStrategy;
+import org.example.parkingstrategy.OrderedParkingSpotStrategy;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CarParkDirector{
 
@@ -55,8 +59,19 @@ public class CarParkDirector{
 
         carPark.setParkingSpots(spots);
         carPark.setSpotCount();
+        carPark.setEntryBarrier(new EntryBarrier());
+        carPark.setExitBarrier(new ExitBarrier(null));
+        carPark.setEntrySensor(new Sensor());
+        carPark.setExitSensor(new Sensor());
         return carPark;
     }
+
+
+//    /    private Sensor entrySensor = new Sensor();
+//    private Sensor exitSensor = new Sensor();
+//    private EntryBarrier entryBarrier= new EntryBarrier();
+//    private ExitBarrier exitBarrier = new ExitBarrier(null);
+
 
     public CarPark<Car> buildPreMadeCarPark() throws IOException {
         CarPark<Car> park = new CarPark<>();
@@ -65,7 +80,37 @@ public class CarParkDirector{
         park.setParkingSpots(parkingSpots);
         park.setCapacity(parkingSpots.size());
         park.setSpotCount();
+        park.setEntryBarrier(new EntryBarrier());
+        park.setExitBarrier(new ExitBarrier(null));
+        park.setEntrySensor(new Sensor());
+        park.setExitSensor(new Sensor());
         return park;
+    }
+
+    public CarParkManager buildPreMadeCarParkWithManager() throws IOException {
+
+        CarPark<Car> carPark = buildPreMadeCarPark();
+        Map<String, Car> registry = new HashMap<>();
+        Map<String, Car> memberRegistry = new HashMap<>();
+        carPark.setEntryBarrier(new EntryBarrier());
+        carPark.setExitBarrier(new ExitBarrier(null));
+        carPark.setEntrySensor(new Sensor());
+        carPark.setExitSensor(new Sensor());
+
+
+        CarParkManager carParkManager = new CarParkManagerBuilder()
+                .setRegistry(new CarRegistry(registry))
+                .setMemberCarRegistry(new MemberCarRegistry(memberRegistry))
+                .setEntryBarrier(new EntryBarrier())
+                .setNearestStrategy(new NearestParkingSpotStrategy(carPark.getParkingSpots()))
+                .setFirstStrategy(new OrderedParkingSpotStrategy(carPark.getParkingSpots()))
+                .setFullSign(new FullSign())
+                .setBarcodeReader(new BarcodeReader())
+                .setPlateNumberReader(new PlateNumberReader())
+                .setCarPark(carPark)
+                .build();
+
+        return carParkManager;
     }
 
 

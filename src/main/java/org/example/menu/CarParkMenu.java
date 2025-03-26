@@ -21,7 +21,7 @@ public class CarParkMenu {
     }
 
     public void start() throws InterruptedException, IOException {
-        carPark = parkManager.initCarPark();
+        carPark = parkManager.getCarPark();
         parkManager.isCarParkFull(carPark);
         while (true) {
             parkView.showStartMenu();

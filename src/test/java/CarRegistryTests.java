@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertTrue;
 
 public class CarRegistryTests {
@@ -12,7 +15,8 @@ public class CarRegistryTests {
 
     @Before
     public void setUp(){
-        carRegistry = new CarRegistry();
+        Map<String, Car> registry = new HashMap<>();
+        carRegistry = new CarRegistry(registry);
     }
 
     @After

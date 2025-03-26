@@ -13,8 +13,8 @@ public class CarParkManagerTests {
 
     private CarParkManager carParkManager;
 
-    @Mock
-    private CarParkDirector mockDirector;
+
+    private CarParkDirector director;
     @Mock
     private CarPark mockCarPark;
     @Mock
@@ -29,26 +29,23 @@ public class CarParkManagerTests {
     private BarcodeReader mockBarcodeReader;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         MockitoAnnotations.openMocks(this);
-        carParkManager = new CarParkManager(mockDirector, mockPlateReader, mockMemberCarRegistry, mockBarcodeReader, mockCarRegistry);
+        director = new CarParkDirector();
+        carParkManager = director.buildPreMadeCarParkWithManager();
+
+
     }
 
-    @Test
-    public void test_initCarPark_Success() throws IOException {
-        when(mockDirector.buildPreMadeCarPark()).thenReturn(mockCarPark);
-        mockCarPark = carParkManager.initCarPark();
-        verify(mockDirector, times(1)).buildPreMadeCarPark();
-    }
 
     @Test
     public void test_getSpotCount_returnsNumber() throws IOException {
         ParkingSpotType spotType = ParkingSpotType.STANDARD;
-        when(mockDirector.buildPreMadeCarPark()).thenReturn(mockCarPark);
-        carParkManager.initCarPark();
-        when(mockCarPark.getSpotCount(spotType)).thenReturn(4);
+        ParkingSpotType spotTypeAccessible = ParkingSpotType.ACCESSIBLE;
         int actual = carParkManager.getSpotCount(spotType);
-        assertEquals(4, actual);
+        int actualAccesible = carParkManager.getSpotCount(spotTypeAccessible);
+        assertEquals(34, actual);
+        assertEquals(33, actualAccesible);
     }
 
     @Test

@@ -4,14 +4,28 @@ package org.example;
 
 
 import java.util.*;
-
+//refactor this
 public class CarPark<T extends Vehicle> {
     private int capacity;
     private List<ParkingSpot> parkingSpots;
-    private Sensor entrySensor = new Sensor();
-    private Sensor exitSensor = new Sensor();
-    private EntryBarrier entryBarrier= new EntryBarrier();
-    private ExitBarrier exitBarrier = new ExitBarrier(null);
+    private Sensor entrySensor;
+    private Sensor exitSensor;
+    private EntryBarrier entryBarrier;
+    private ExitBarrier exitBarrier;
+    private final Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
+
+//    private Sensor entrySensor = new Sensor();
+//    private Sensor exitSensor = new Sensor();
+//    private EntryBarrier entryBarrier= new EntryBarrier();
+//    private ExitBarrier exitBarrier = new ExitBarrier(null);
+
+    public CarPark(){};
+
+    public CarPark(int capacity){
+        this.capacity = capacity;
+    }
+
+
 
     public EntryBarrier getEntryBarrier() {
         return entryBarrier;
@@ -29,13 +43,8 @@ public class CarPark<T extends Vehicle> {
         this.exitBarrier = exitBarrier;
     }
 
-    private final Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
 
-    public CarPark(){};
 
-    public CarPark(int capacity){
-        this.capacity = capacity;
-    }
 
 
     public void setSpotCount(){

@@ -12,21 +12,22 @@ import java.time.LocalDateTime;
 
 public class CarParkManager {
 
-    private CarParkDirector director = new CarParkDirector();
-    private CarRegistry registry = new CarRegistry();
-    private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
-    private final EntryBarrier entryBarrier = new EntryBarrier();
+
+    private CarRegistry registry;
+    private MemberCarRegistry memberCarRegistry;
+    private EntryBarrier entryBarrier;
     private NearestParkingSpotStrategy nearestStrategy;
     private OrderedParkingSpotStrategy firstStrategy;
-    private final FullSign fullSign = new FullSign();
-    private BarcodeReader barcodeReader = new BarcodeReader();
-    private PlateNumberReader plateNumberReader = new PlateNumberReader();
+    private FullSign fullSign;
+
+    private BarcodeReader barcodeReader;
+    private PlateNumberReader plateNumberReader;
     private CarPark<Car> carPark;
 
-    public CarParkManager(CarParkDirector director, PlateNumberReader plateReader,
+    public CarParkManager(){};
+    public CarParkManager( PlateNumberReader plateReader,
                           MemberCarRegistry memberCarRegistry, BarcodeReader barcodeReader,
                           CarRegistry carRegistry) {
-        this.director = director;
         this.plateNumberReader = plateReader;
         this.memberCarRegistry = memberCarRegistry;
         this.barcodeReader = barcodeReader;
@@ -34,13 +35,83 @@ public class CarParkManager {
     }
 
 
-
-    public CarPark<Car> initCarPark() throws IOException {
-        carPark = director.buildPreMadeCarPark();
-        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
-        firstStrategy = new OrderedParkingSpotStrategy(carPark.getParkingSpots());
+    public CarPark<Car> getCarPark() {
         return carPark;
     }
+
+    public void setCarPark(CarPark<Car> carPark) {
+        this.carPark = carPark;
+    }
+
+    public PlateNumberReader getPlateNumberReader() {
+        return plateNumberReader;
+    }
+
+    public void setPlateNumberReader(PlateNumberReader plateNumberReader) {
+        this.plateNumberReader = plateNumberReader;
+    }
+
+    public BarcodeReader getBarcodeReader() {
+        return barcodeReader;
+    }
+
+    public void setBarcodeReader(BarcodeReader barcodeReader) {
+        this.barcodeReader = barcodeReader;
+    }
+
+    public FullSign getFullSign() {
+        return fullSign;
+    }
+
+    public void setFullSign(FullSign fullSign) {
+        this.fullSign = fullSign;
+    }
+
+    public OrderedParkingSpotStrategy getFirstStrategy() {
+        return firstStrategy;
+    }
+
+    public void setFirstStrategy(OrderedParkingSpotStrategy firstStrategy) {
+        this.firstStrategy = firstStrategy;
+    }
+
+    public NearestParkingSpotStrategy getNearestStrategy() {
+        return nearestStrategy;
+    }
+
+    public void setNearestStrategy(NearestParkingSpotStrategy nearestStrategy) {
+        this.nearestStrategy = nearestStrategy;
+    }
+
+    public EntryBarrier getEntryBarrier() {
+        return entryBarrier;
+    }
+
+    public void setEntryBarrier(EntryBarrier entryBarrier) {
+        this.entryBarrier = entryBarrier;
+    }
+
+    public MemberCarRegistry getMemberCarRegistry() {
+        return memberCarRegistry;
+    }
+
+    public void setMemberCarRegistry(MemberCarRegistry memberCarRegistry) {
+        this.memberCarRegistry = memberCarRegistry;
+    }
+
+    public CarRegistry getRegistry() {
+        return registry;
+    }
+
+    public void setRegistry(CarRegistry registry) {
+        this.registry = registry;
+    }
+
+//    public CarPark<Car> initCarPark() throws IOException {
+//        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
+//        firstStrategy = new OrderedParkingSpotStrategy(carPark.getParkingSpots());
+//        return carPark;
+//    }
 
     public int getSpotCount(ParkingSpotType spotType){
         return carPark.getSpotCount(spotType);
