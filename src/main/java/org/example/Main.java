@@ -1,12 +1,9 @@
 package org.example;
 
 import org.example.builder.CarParkDirector;
-import org.example.database.ParkingSpotLoader;
 import org.example.menu.CarParkMenu;
-import org.example.menu.CarParkView;
 
 import java.io.IOException;
-import java.util.List;
 
 
 public class Main {

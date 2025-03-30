@@ -145,7 +145,7 @@ public class CarParkManager {
     }
 
 
-    public <T extends Vehicle> void isCarParkFull(CarPark<T> carPark){
+    public  void isCarParkFull(){
         for(ParkingSpotType type: ParkingSpotType.values()){
             if(carPark.getSpotCount(type) > 0){
                 carPark.getFullSign().switchOff();

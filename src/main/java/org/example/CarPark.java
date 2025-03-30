@@ -39,9 +39,6 @@ public class CarPark<T extends Vehicle> {
         this.fullSign = fullSign;
     }
 
-
-
-
     public IDReader getPlateNumberReader() {
         return plateNumberReader;
     }
@@ -59,15 +56,10 @@ public class CarPark<T extends Vehicle> {
     }
 
 
-
-
-
 //    private Sensor entrySensor = new Sensor();
 //    private Sensor exitSensor = new Sensor();
 //    private EntryBarrier entryBarrier= new EntryBarrier();
 //    private ExitBarrier exitBarrier = new ExitBarrier(null);
-
-
 
 
     public int getCarParkId() {

@@ -79,6 +79,13 @@ public class CarParkDirector{
         park.setExitBarrier(new ExitBarrier(null));
         park.setEntrySensor(new Sensor());
         park.setExitSensor(new Sensor());
+        park.setEntryBarrier(new EntryBarrier());
+        park.setExitBarrier(new ExitBarrier(null));
+        park.setEntrySensor(new Sensor());
+        park.setExitSensor(new Sensor());
+        park.setFullSign(new FullSign());
+        park.setBarcodeReader(new BarcodeReader());
+        park.setPlateNumberReader(new PlateNumberReader());
         return park;
     }
 
@@ -87,19 +94,12 @@ public class CarParkDirector{
         CarPark<Car> carPark = buildPreMadeCarPark();
         Map<String, Car> registry = new HashMap<>();
         Map<String, Car> memberRegistry = new HashMap<>();
-        carPark.setEntryBarrier(new EntryBarrier());
-        carPark.setExitBarrier(new ExitBarrier(null));
-        carPark.setEntrySensor(new Sensor());
-        carPark.setExitSensor(new Sensor());
-
 
         CarParkManager carParkManager = new CarParkManagerBuilder()
                 .setRegistry(new CarRegistry(registry))
                 .setMemberCarRegistry(new MemberCarRegistry(memberRegistry))
-                .setEntryBarrier(new EntryBarrier())
                 .setNearestStrategy(new NearestParkingSpotStrategy(carPark.getParkingSpots()))
                 .setFirstStrategy(new OrderedParkingSpotStrategy(carPark.getParkingSpots()))
-                .setFullSign(new FullSign())
                 .setCarPark(carPark)
                 .build();
 

@@ -19,7 +19,7 @@ public class CarParkMenu {
 
     public void start() throws InterruptedException {
         carPark = parkManager.getCarPark();
-        parkManager.isCarParkFull(carPark);
+        parkManager.isCarParkFull();
         while (true) {
             CarParkView.showStartMenu();
             int choice = InputUtils.getValidInput(1,4);

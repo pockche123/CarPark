@@ -10,10 +10,8 @@ public class CarParkManagerBuilder {
 
     private CarRegistry registry;
     private MemberCarRegistry memberCarRegistry;
-    private EntryBarrier entryBarrier;
     private NearestParkingSpotStrategy nearestStrategy;
     private OrderedParkingSpotStrategy firstStrategy;
-    private FullSign fullSign;
     private CarPark<Car> carPark;
 
 
@@ -27,11 +25,6 @@ public class CarParkManagerBuilder {
         return this;
     }
 
-    public CarParkManagerBuilder setEntryBarrier(EntryBarrier entryBarrier) {
-        this.entryBarrier = entryBarrier;
-        return this;
-    }
-
     public CarParkManagerBuilder setNearestStrategy(NearestParkingSpotStrategy nearestStrategy) {
         this.nearestStrategy = nearestStrategy;
         return this;
@@ -42,10 +35,6 @@ public class CarParkManagerBuilder {
         return this;
     }
 
-    public CarParkManagerBuilder setFullSign(FullSign fullSign) {
-        this.fullSign = fullSign;
-        return this;
-    }
 
     public CarParkManagerBuilder setCarPark(CarPark<Car> carPark) {
         this.carPark = carPark;
