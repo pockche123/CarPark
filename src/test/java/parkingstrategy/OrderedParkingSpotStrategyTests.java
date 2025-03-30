@@ -3,7 +3,7 @@ package parkingstrategy;
 import org.example.ParkingSpot;
 import org.example.ParkingSpotStatus;
 import org.example.ParkingSpotType;
-import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
+import org.example.parkingstrategy.OrderedParkingSpotStrategy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class FirstAvailableParkingSpotStrategyTests {
+public class OrderedParkingSpotStrategyTests {
 
 
     List<ParkingSpot> spots = Arrays.asList(
@@ -31,11 +31,11 @@ public class FirstAvailableParkingSpotStrategyTests {
     );
 
 
-    FirstAvailableParkingSpotStrategy strategy;
+    OrderedParkingSpotStrategy strategy;
 
     @Before
     public void setUp(){
-        strategy = new FirstAvailableParkingSpotStrategy(spots);
+        strategy = new OrderedParkingSpotStrategy(spots);
     }
 
     @After

@@ -4,17 +4,73 @@ package org.example;
 
 
 import java.util.*;
-
-public class CarPark {
+//refactor this
+public class CarPark<T extends Vehicle> {
+    private int carParkId;
     private int capacity;
-
     private List<ParkingSpot> parkingSpots;
-    private Sensor entrySensor = new Sensor();
-    private Sensor exitSensor = new Sensor();
-    private EntryBarrier entryBarrier= new EntryBarrier();
-    private ExitBarrier exitBarrier = new ExitBarrier(null);
+    private Sensor entrySensor;
+    private Sensor exitSensor;
+    private Barrier entryBarrier;
+    private Barrier exitBarrier;
+    private final Map<ParkingSpotType, Integer> spotCount  = new HashMap<>();
+    private IDReader barcodeReader;
+    private IDReader plateNumberReader;
+    private FullSign fullSign;
 
-    public EntryBarrier getEntryBarrier() {
+    public CarPark() {
+
+    }
+
+    public CarPark(int capacity){
+        this.capacity = capacity;
+    }
+
+    public CarPark(List<ParkingSpot> spots){
+        this.parkingSpots = spots;
+    };
+
+
+    public FullSign getFullSign() {
+        return fullSign;
+    }
+
+    public void setFullSign(FullSign fullSign) {
+        this.fullSign = fullSign;
+    }
+
+    public IDReader getPlateNumberReader() {
+        return plateNumberReader;
+    }
+
+    public void setPlateNumberReader(PlateNumberReader plateNumberReader) {
+        this.plateNumberReader = plateNumberReader;
+    }
+
+    public IDReader getBarcodeReader() {
+        return barcodeReader;
+    }
+
+    public void setBarcodeReader(BarcodeReader barcodeReader) {
+        this.barcodeReader = barcodeReader;
+    }
+
+
+//    private Sensor entrySensor = new Sensor();
+//    private Sensor exitSensor = new Sensor();
+//    private EntryBarrier entryBarrier= new EntryBarrier();
+//    private ExitBarrier exitBarrier = new ExitBarrier(null);
+
+
+    public int getCarParkId() {
+        return carParkId;
+    }
+
+    public void setCarParkId(int carParkId) {
+        this.carParkId = carParkId;
+    }
+
+    public Barrier getEntryBarrier() {
         return entryBarrier;
     }
 
@@ -23,20 +79,11 @@ public class CarPark {
     }
 
     public ExitBarrier getExitBarrier() {
-        return exitBarrier;
+        return (ExitBarrier) exitBarrier;
     }
 
     public void setExitBarrier(ExitBarrier exitBarrier) {
         this.exitBarrier = exitBarrier;
-    }
-
-    private final Map<ParkingSpotType, Integer> spotCount = new HashMap<>();
-
-
-//    private Map<String, ParkingSpotType> parkingSpotTypeSpacesMap = new HashMap<>();
-
-    public CarPark(int capacity){
-        this.capacity = capacity;
     }
 
 
@@ -98,32 +145,5 @@ public class CarPark {
         this.exitSensor = exitSensor;
     }
 
-
-
-    public void update() {
-        //Place your carpark update logic here.
-        //The pseudo code illustrates some of the actions required
-        // in conjunction with other classes and will need further refinement.
-        //1.  poll car park components (sensor/etc).
-        //************************************************
-        //3.  if car present at entrance then
-        //4.    if ID valid && car park not full then
-        //5.      raise barrier and let car pass
-        //6.	  endif
-        //7.  endif
-        //************************************************
-        //9.  if car present at exit then
-        //10.   raise barrier and let car pass
-        //11.   update records and increment spaces
-        //12. endif
-        //************************************************
-        //14. if carpark full then
-        //15.   turn on full sign
-        //16: else
-        //17.   turn off full sign
-        //18. endif
-        //************************************************
-        //...and so on
-    }
     
 }

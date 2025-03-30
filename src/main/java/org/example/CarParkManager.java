@@ -1,43 +1,76 @@
 package org.example;
 
-import org.example.builder.CarParkDirector;
 
-import org.example.parkingstrategy.FirstAvailableParkingSpotStrategy;
+import org.example.parkingstrategy.OrderedParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
 import org.example.parkingstrategy.ParkingSpotStrategy;
-import org.example.utils.ValidationUtils;
 
-import java.util.Map;
-import java.util.Scanner;
 
+import java.time.LocalDateTime;
+
+//have removeFROmRegisty methods
 public class CarParkManager {
 
-    private CarParkDirector director = new CarParkDirector();
-    private CarRegistry registry = new CarRegistry();
-    private MemberCarRegistry memberCarRegistry = new MemberCarRegistry();
-    private EntryBarrier entryBarrier = new EntryBarrier();
-
-    private NearestParkingSpotStrategy nearestStrategy;
-    private FirstAvailableParkingSpotStrategy firstStrategy;
-    private FullSign fullSign = new FullSign();
-    private BarcodeReader barcodeReader = new BarcodeReader();
-    private PlateNumberReader plateNumberReader = new PlateNumberReader();
-    private CarPark carPark;
+    private CarRegistry registry;
+    private MemberCarRegistry memberCarRegistry;
+    private ParkingSpotStrategy nearestStrategy;
+    private ParkingSpotStrategy firstStrategy;
+    private CarPark<Car> carPark;
 
 
+    public CarParkManager(){};
 
-    public CarPark initCarPark(int capacity){
-        carPark = director.buildAverageCarPark(capacity);
-        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
-        firstStrategy = new FirstAvailableParkingSpotStrategy(carPark.getParkingSpots());
+    public CarPark<Car> getCarPark() {
         return carPark;
+    }
+
+    public void setCarPark(CarPark<Car> carPark) {
+        this.carPark = carPark;
+    }
+
+
+
+    public ParkingSpotStrategy getFirstStrategy() {
+        return firstStrategy;
+    }
+
+    public void setFirstStrategy(OrderedParkingSpotStrategy firstStrategy) {
+        this.firstStrategy = firstStrategy;
+    }
+
+    public ParkingSpotStrategy getNearestStrategy() {
+        return nearestStrategy;
+    }
+
+    public void setNearestStrategy(NearestParkingSpotStrategy nearestStrategy) {
+        this.nearestStrategy = nearestStrategy;
+    }
+
+
+    public MemberCarRegistry getMemberCarRegistry() {
+        return memberCarRegistry;
+    }
+
+    public void setMemberCarRegistry(MemberCarRegistry memberCarRegistry) {
+        this.memberCarRegistry = memberCarRegistry;
+    }
+
+    public CarRegistry getRegistry() {
+        return registry;
+    }
+
+    public void setRegistry(CarRegistry registry) {
+        this.registry = registry;
     }
 
     public int getSpotCount(ParkingSpotType spotType){
         return carPark.getSpotCount(spotType);
     }
 
-
+    public void removeFromRegistry(Car car){
+        memberCarRegistry.removeCar(car.getBarcode());
+        registry.removeCar(car.getPlate());
+    }
     public boolean addNonmemberRegistry(String reg, Car car){
         if(car == null){
             System.out.println("Car is null");
@@ -47,12 +80,12 @@ public class CarParkManager {
             System.out.println("the car plate is null");
             return false;
         }
-        String regFetched = plateNumberReader.read(car);
+        String regFetched = carPark.getPlateNumberReader().read(car);
         if(regFetched == null){
             System.out.println("fetched plate is null");
             return false;
         }
-        return plateNumberReader.read(car).equalsIgnoreCase(reg) && registry.addCar(reg, car);
+        return carPark.getPlateNumberReader().read(car).equalsIgnoreCase(reg) && registry.addCar(reg, car);
     }
 
 
@@ -66,7 +99,7 @@ public class CarParkManager {
             System.out.println("the barcode is null");
             return false;
         }
-        String plateNumber = barcodeReader.read(car);
+        String plateNumber = carPark.getBarcodeReader().read(car);
         if (plateNumber == null) {
             return false;
         }
@@ -91,11 +124,11 @@ public class CarParkManager {
     }
 
     public void raiseEntryBarrier(){
-        entryBarrier.raise();
+        carPark.getEntryBarrier().raise();
     }
 
     public void lowerEntryBarrier(){
-        entryBarrier.lower();
+        carPark.getEntryBarrier().lower();
     }
 
     public ParkingSpot parkCar(String strategy, ParkingSpotType type){
@@ -112,14 +145,14 @@ public class CarParkManager {
     }
 
 
-    public void isCarParkFull(CarPark carPark){
+    public  void isCarParkFull(){
         for(ParkingSpotType type: ParkingSpotType.values()){
             if(carPark.getSpotCount(type) > 0){
-                fullSign.switchOff();
+                carPark.getFullSign().switchOff();
                 return;
             };
         }
-        fullSign.switchOn();
+        carPark.getFullSign().switchOn();
 
     }
 
@@ -130,15 +163,17 @@ public class CarParkManager {
 
     }
 
+    public void setEntryTime(Car car){
+        car.setEnterTime(LocalDateTime.now());
+    }
+
+    public void setExitTime(Car car){
+        car.setLeaveTime(LocalDateTime.now());
+    }
+
     public void lowerExitBarrier(ParkingSpotType spotType){
         carPark.getExitBarrier().lower();
         carPark.incrementSpotCount(spotType);
         carPark.getExitBarrier().setTicket(null);
     }
-
-
-
-
-
-
 }

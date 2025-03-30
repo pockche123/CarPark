@@ -4,10 +4,7 @@ package org.example;
 public class EntryBarrier implements Barrier {
 
     private boolean up;
-    public EntryBarrier(){
-
-    }
-
+    public EntryBarrier(){}
 
     public boolean getUp() {
         return up;

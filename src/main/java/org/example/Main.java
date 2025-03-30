@@ -3,22 +3,16 @@ package org.example;
 import org.example.builder.CarParkDirector;
 import org.example.menu.CarParkMenu;
 
+import java.io.IOException;
+
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-//      CarParkManager carParkManager = new CarParkManager();
-//      CarParkDirector director = new CarParkDirector();
-//      CarPark park = director.buildAverageCarPark(100);
+    public static void main(String[] args) throws InterruptedException, IOException {
 
-
-
-
-//      park.printCarParkSpots();
-
-      CarParkMenu menu = new CarParkMenu();
-      menu.start();
-
-
+        CarParkDirector director = new CarParkDirector();
+        CarParkManager carParkManager = director.buildPreMadeCarParkWithManager();
+        CarParkMenu menu = new CarParkMenu(carParkManager);
+        menu.start();
 
 
     }

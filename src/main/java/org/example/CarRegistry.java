@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CarRegistry {
-    protected Map<String, Car> carRegistry = new HashMap<>();
+    protected Map<String, Car> carRegistry;
+
+    public CarRegistry(Map<String, Car> registry){
+        this.carRegistry = registry;
+    }
 
 
     public boolean addCar(String key, Car value){
