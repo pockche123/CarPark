@@ -3,7 +3,6 @@ package org.example.menu;
 import org.example.*;
 import org.example.utils.InputUtils;
 
-import java.io.IOException;
 
 
 public class CarParkMenu {
@@ -11,20 +10,18 @@ public class CarParkMenu {
     private CarPark<Car> carPark;
     private ParkingSpotType spotType;
     private final CarParkManager parkManager;
-    private final CarParkView parkView;
     private ParkingSpot spot;
     private Car car;
 
-    public CarParkMenu(CarParkManager manager, CarParkView parkView){
+    public CarParkMenu(CarParkManager manager){
         this.parkManager = manager;
-        this.parkView = parkView;
     }
 
-    public void start() throws InterruptedException, IOException {
+    public void start() throws InterruptedException {
         carPark = parkManager.getCarPark();
         parkManager.isCarParkFull(carPark);
         while (true) {
-            parkView.showStartMenu();
+            CarParkView.showStartMenu();
             int choice = InputUtils.getValidInput(1,4);
             if(choice == 4){
                 System.out.println("Exiting menu...");
@@ -38,9 +35,9 @@ public class CarParkMenu {
         ParkingSpotType[] spotTypes = ParkingSpotType.values();
         spotType = spotTypes[choice-1];
         int spaces = parkManager.getSpotCount(spotType);
-        parkView.showChoiceResults(choice, spaces);
+        CarParkView.showChoiceResults(choice, spaces);
         if(spaces > 0){
-            parkView.showMembershipType();
+            CarParkView.showMembershipType();
             int membershipChoice = InputUtils.getValidInput(1,4);
             handleUserChoice(membershipChoice);
         }
@@ -100,7 +97,6 @@ public class CarParkMenu {
         System.out.println("Car Entering ... ");
         Thread.sleep(1000);
         System.out.println("Car Entered");
-        parkManager.setEntryTime(car);
         Thread.sleep(1000);
         parkManager.decrementSpotCount(spotType);
 
@@ -112,6 +108,7 @@ public class CarParkMenu {
             if(detectAndAllowEntry(car)){
                 parkManager.sensorUndetectCar(carPark.getEntrySensor());
                 parkManager.lowerEntryBarrier();
+                parkManager.setEntryTime(car);
                 Thread.sleep(1000);
                 handleChooseCarSpace();
             }else {
@@ -120,7 +117,7 @@ public class CarParkMenu {
     }
 
     private void handleChooseCarSpace() throws InterruptedException {
-        parkView.showParkingStrategies();
+        CarParkView.showParkingStrategies();
         int choice = InputUtils.getValidInput(1,3);
         switch(choice) {
             case 1:
@@ -178,6 +175,7 @@ public class CarParkMenu {
             Thread.sleep(1000);
             parkManager.lowerExitBarrier(spotType);
             parkManager.sensorUndetectCar(carPark.getExitSensor());
+            parkManager.removeFromRegistry(car);
         }
 
         Thread.sleep(1000);

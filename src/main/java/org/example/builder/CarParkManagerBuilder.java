@@ -14,8 +14,6 @@ public class CarParkManagerBuilder {
     private NearestParkingSpotStrategy nearestStrategy;
     private OrderedParkingSpotStrategy firstStrategy;
     private FullSign fullSign;
-    private BarcodeReader barcodeReader;
-    private PlateNumberReader plateNumberReader;
     private CarPark<Car> carPark;
 
 
@@ -49,34 +47,19 @@ public class CarParkManagerBuilder {
         return this;
     }
 
-    public CarParkManagerBuilder setBarcodeReader(BarcodeReader barcodeReader) {
-        this.barcodeReader = barcodeReader;
-        return this;
-    }
-
-    public CarParkManagerBuilder setPlateNumberReader(PlateNumberReader plateNumberReader) {
-        this.plateNumberReader = plateNumberReader;
-        return this;
-    }
-
     public CarParkManagerBuilder setCarPark(CarPark<Car> carPark) {
         this.carPark = carPark;
         return this;
     }
 
-    // Build the CarParkManager instance
+
     public CarParkManager build() throws IOException{
         CarParkManager carParkManager = new CarParkManager();
 
-        // Set each field to the CarParkManager instance
         carParkManager.setRegistry(registry);
         carParkManager.setMemberCarRegistry(memberCarRegistry);
-        carParkManager.setEntryBarrier(entryBarrier);
         carParkManager.setNearestStrategy(nearestStrategy);
         carParkManager.setFirstStrategy(firstStrategy);
-        carParkManager.setFullSign(fullSign);
-        carParkManager.setBarcodeReader(barcodeReader);
-        carParkManager.setPlateNumberReader(plateNumberReader);
         carParkManager.setCarPark(carPark);
 
         return carParkManager;

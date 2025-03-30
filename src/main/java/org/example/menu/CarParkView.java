@@ -3,7 +3,7 @@ package org.example.menu;
 public class CarParkView {
 
 
-    public void showStartMenu(){
+    public static void showStartMenu(){
         System.out.println("--------------- Welcome to PJ's Parking -------------------");
         System.out.println("PAYMENT Option coming soon...");
         System.out.println(" Please pick the option for the parking type: ");
@@ -13,7 +13,7 @@ public class CarParkView {
         System.out.println(" 4. Cancel ");
     }
 
-    public void showChoiceResults( int choice, int spaces){
+    public static void showChoiceResults( int choice, int spaces){
 
         String[] spotNames = {"STANDARD", "ACCESSIBLE", "EV"};
         if(spaces > 0){
@@ -23,7 +23,7 @@ public class CarParkView {
         }
     }
 
-    public void showMembershipType(){
+    public static void showMembershipType(){
         System.out.println("Please select the type of membership: ");
         System.out.println("1. Member");
         System.out.println("2. Non-member");
@@ -31,7 +31,7 @@ public class CarParkView {
         System.out.println("4. Cancel");
     }
 
-    public void showParkingStrategies(){
+    public static void showParkingStrategies(){
         System.out.println("Please pick how you want to park your car");
         System.out.println("1. Closest to the gate.");
         System.out.println("2. By the next available parking spot number.");

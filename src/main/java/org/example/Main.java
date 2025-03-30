@@ -14,9 +14,9 @@ public class Main {
 
         CarParkDirector director = new CarParkDirector();
         CarParkManager carParkManager = director.buildPreMadeCarParkWithManager();
-        CarParkView parkView = new CarParkView();
-        CarParkMenu menu = new CarParkMenu(carParkManager, parkView);
+        CarParkMenu menu = new CarParkMenu(carParkManager);
         menu.start();
+
 
     }
 }

@@ -1,6 +1,7 @@
 package builder;
 
 import org.example.CarPark;
+import org.example.CarParkManager;
 import org.example.builder.CarParkDirector;
 import org.junit.After;
 import org.junit.Before;
@@ -37,6 +38,13 @@ public class CarParkDirectorTests {
         CarPark park = carParkDirector.buildPreMadeCarPark();
 
         assertEquals(100, park.getCapacity());
+
+    }
+
+    @Test
+    public void test_buildPreMadeCarParkWithManager() throws IOException {
+        CarParkManager manager = carParkDirector.buildPreMadeCarParkWithManager();
+        assertEquals(100, manager.getCarPark().getCapacity());
 
     }
 

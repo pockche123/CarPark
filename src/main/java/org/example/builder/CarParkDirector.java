@@ -67,11 +67,6 @@ public class CarParkDirector{
     }
 
 
-//    /    private Sensor entrySensor = new Sensor();
-//    private Sensor exitSensor = new Sensor();
-//    private EntryBarrier entryBarrier= new EntryBarrier();
-//    private ExitBarrier exitBarrier = new ExitBarrier(null);
-
 
     public CarPark<Car> buildPreMadeCarPark() throws IOException {
         CarPark<Car> park = new CarPark<>();
@@ -105,8 +100,6 @@ public class CarParkDirector{
                 .setNearestStrategy(new NearestParkingSpotStrategy(carPark.getParkingSpots()))
                 .setFirstStrategy(new OrderedParkingSpotStrategy(carPark.getParkingSpots()))
                 .setFullSign(new FullSign())
-                .setBarcodeReader(new BarcodeReader())
-                .setPlateNumberReader(new PlateNumberReader())
                 .setCarPark(carPark)
                 .build();
 

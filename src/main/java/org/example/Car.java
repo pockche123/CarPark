@@ -2,9 +2,6 @@ package org.example;
 
 
 
-import jdk.swing.interop.SwingInterOpUtils;
-
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 
 public class Car implements Vehicle{
@@ -19,7 +16,6 @@ public class Car implements Vehicle{
     public Car(){
 
     }
-
     public Car(String plate){
         this.plate = plate;
 
@@ -27,6 +23,7 @@ public class Car implements Vehicle{
     public Car(long barcode){
         this.barcode = String.valueOf(barcode);
     }
+    
     public String getPlate(){return this.plate;}
 
     public String getBarcode(){
@@ -36,8 +33,6 @@ public class Car implements Vehicle{
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
-
-
 
     public Ticket getTicket() {
         return ticket;
@@ -71,7 +66,5 @@ public class Car implements Vehicle{
     public void setPlate(String plate) {
         this.plate = plate;
     }
-
-
 
 }

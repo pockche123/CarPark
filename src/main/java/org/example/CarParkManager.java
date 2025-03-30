@@ -1,39 +1,24 @@
 package org.example;
 
-import org.example.builder.CarParkDirector;
 
 import org.example.parkingstrategy.OrderedParkingSpotStrategy;
 import org.example.parkingstrategy.NearestParkingSpotStrategy;
+import org.example.parkingstrategy.ParkingSpotStrategy;
 
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-
+//have removeFROmRegisty methods
 public class CarParkManager {
-
 
     private CarRegistry registry;
     private MemberCarRegistry memberCarRegistry;
-    private EntryBarrier entryBarrier;
-    private NearestParkingSpotStrategy nearestStrategy;
-    private OrderedParkingSpotStrategy firstStrategy;
-    private FullSign fullSign;
-
-    private BarcodeReader barcodeReader;
-    private PlateNumberReader plateNumberReader;
+    private ParkingSpotStrategy nearestStrategy;
+    private ParkingSpotStrategy firstStrategy;
     private CarPark<Car> carPark;
 
-    public CarParkManager(){};
-    public CarParkManager( PlateNumberReader plateReader,
-                          MemberCarRegistry memberCarRegistry, BarcodeReader barcodeReader,
-                          CarRegistry carRegistry) {
-        this.plateNumberReader = plateReader;
-        this.memberCarRegistry = memberCarRegistry;
-        this.barcodeReader = barcodeReader;
-        this.registry = carRegistry;
-    }
 
+    public CarParkManager(){};
 
     public CarPark<Car> getCarPark() {
         return carPark;
@@ -43,31 +28,9 @@ public class CarParkManager {
         this.carPark = carPark;
     }
 
-    public PlateNumberReader getPlateNumberReader() {
-        return plateNumberReader;
-    }
 
-    public void setPlateNumberReader(PlateNumberReader plateNumberReader) {
-        this.plateNumberReader = plateNumberReader;
-    }
 
-    public BarcodeReader getBarcodeReader() {
-        return barcodeReader;
-    }
-
-    public void setBarcodeReader(BarcodeReader barcodeReader) {
-        this.barcodeReader = barcodeReader;
-    }
-
-    public FullSign getFullSign() {
-        return fullSign;
-    }
-
-    public void setFullSign(FullSign fullSign) {
-        this.fullSign = fullSign;
-    }
-
-    public OrderedParkingSpotStrategy getFirstStrategy() {
+    public ParkingSpotStrategy getFirstStrategy() {
         return firstStrategy;
     }
 
@@ -75,7 +38,7 @@ public class CarParkManager {
         this.firstStrategy = firstStrategy;
     }
 
-    public NearestParkingSpotStrategy getNearestStrategy() {
+    public ParkingSpotStrategy getNearestStrategy() {
         return nearestStrategy;
     }
 
@@ -83,13 +46,6 @@ public class CarParkManager {
         this.nearestStrategy = nearestStrategy;
     }
 
-    public EntryBarrier getEntryBarrier() {
-        return entryBarrier;
-    }
-
-    public void setEntryBarrier(EntryBarrier entryBarrier) {
-        this.entryBarrier = entryBarrier;
-    }
 
     public MemberCarRegistry getMemberCarRegistry() {
         return memberCarRegistry;
@@ -107,17 +63,14 @@ public class CarParkManager {
         this.registry = registry;
     }
 
-//    public CarPark<Car> initCarPark() throws IOException {
-//        nearestStrategy = new NearestParkingSpotStrategy(carPark.getParkingSpots());
-//        firstStrategy = new OrderedParkingSpotStrategy(carPark.getParkingSpots());
-//        return carPark;
-//    }
-
     public int getSpotCount(ParkingSpotType spotType){
         return carPark.getSpotCount(spotType);
     }
 
-
+    public void removeFromRegistry(Car car){
+        memberCarRegistry.removeCar(car.getBarcode());
+        registry.removeCar(car.getPlate());
+    }
     public boolean addNonmemberRegistry(String reg, Car car){
         if(car == null){
             System.out.println("Car is null");
@@ -127,12 +80,12 @@ public class CarParkManager {
             System.out.println("the car plate is null");
             return false;
         }
-        String regFetched = plateNumberReader.read(car);
+        String regFetched = carPark.getPlateNumberReader().read(car);
         if(regFetched == null){
             System.out.println("fetched plate is null");
             return false;
         }
-        return plateNumberReader.read(car).equalsIgnoreCase(reg) && registry.addCar(reg, car);
+        return carPark.getPlateNumberReader().read(car).equalsIgnoreCase(reg) && registry.addCar(reg, car);
     }
 
 
@@ -146,7 +99,7 @@ public class CarParkManager {
             System.out.println("the barcode is null");
             return false;
         }
-        String plateNumber = barcodeReader.read(car);
+        String plateNumber = carPark.getBarcodeReader().read(car);
         if (plateNumber == null) {
             return false;
         }
@@ -171,11 +124,11 @@ public class CarParkManager {
     }
 
     public void raiseEntryBarrier(){
-        entryBarrier.raise();
+        carPark.getEntryBarrier().raise();
     }
 
     public void lowerEntryBarrier(){
-        entryBarrier.lower();
+        carPark.getEntryBarrier().lower();
     }
 
     public ParkingSpot parkCar(String strategy, ParkingSpotType type){
@@ -195,11 +148,11 @@ public class CarParkManager {
     public <T extends Vehicle> void isCarParkFull(CarPark<T> carPark){
         for(ParkingSpotType type: ParkingSpotType.values()){
             if(carPark.getSpotCount(type) > 0){
-                fullSign.switchOff();
+                carPark.getFullSign().switchOff();
                 return;
             };
         }
-        fullSign.switchOn();
+        carPark.getFullSign().switchOn();
 
     }
 

@@ -26,7 +26,7 @@ public class CarParkMenuTests {
     @Before
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        carParkMenu = new CarParkMenu(mockParkManager, mockParkView);
+        carParkMenu = new CarParkMenu(mockParkManager);
     }
 
 //    @Test
