@@ -30,7 +30,7 @@ To clone the repository, use the following command:
 
  ```bash
   git clone https://github.com/pockche123/CarPark.git
-  cd <CarRentalApp Directory>
+  cd <CarPark Directory>
   ```
 
 ### Building the project 
