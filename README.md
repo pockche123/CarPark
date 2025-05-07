@@ -22,7 +22,7 @@
 Please ensure you have the following installed to setup and run the application.
 
 - Java 21+
-- Mavan 3.9.9+
+- Maven 3.9.9+
 
 ### Cloning the repository 
 
